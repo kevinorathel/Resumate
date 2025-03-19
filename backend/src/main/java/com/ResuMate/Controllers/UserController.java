@@ -44,7 +44,7 @@ public class UserController {
 //        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
 //    }
 
-    @GetMapping("/generate")
+    @GetMapping("/generateResume")
     public ResponseEntity<byte[]> createResume(@RequestParam("userId") Long userId) throws IOException {
         byte[] pdfBytes = userService.createResume(userId);
         UserModel user = userService.getUserData(userId);
