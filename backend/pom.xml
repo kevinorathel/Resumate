@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.resumate</groupId>
 	<artifactId>Resumate</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>Resumate</name>
 	<description>The backend for ResuMate</description>
 	<url/>
@@ -53,8 +53,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- iText for PDF generation -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20210307</version>
+		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itext7-core</artifactId>
