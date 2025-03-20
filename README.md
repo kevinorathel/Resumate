@@ -1,0 +1,43 @@
+
+# ResuMate
+
+ResuMate is an application that helps people write great ATS proof resumes easily. Once the user signs up and logins in, they will be prompted to give some basic information about themselves such as their education, experience etc.. and resumate will generate a resume for you. 
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`ENCRYPTION_KEY`
+
+`GEMINI_API_KEY`
+
+
+
+## API Reference
+
+#### Test API
+
+```http
+  GET /user/TestAPI
+```
+
+This Test API ensures that you are connected and everything is working.
+
+#### Generate Resume
+
+```http
+  GET /user/generateResume
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `userId`      | `Long` | **Required**. Id of the user |
+
+
+Generates a resume for the user of the given userId
