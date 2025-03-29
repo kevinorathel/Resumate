@@ -28,16 +28,3 @@ To run this project, you will need to add the following environment variables to
 ```
 
 This Test API ensures that you are connected and everything is working.
-
-#### Generate Resume
-
-```http
-  GET /user/generateResume
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId`      | `Long` | **Required**. Id of the user |
-
-
-Generates a resume for the user of the given userId
