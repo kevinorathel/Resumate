@@ -1,6 +1,6 @@
 package com.ResuMate.Controllers;
 
-import com.ResuMate.DTO.jobDescriptionDTO;
+import com.ResuMate.DTO.JobDescriptionDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/user")
@@ -45,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/generateCV")
-    public String userData(@RequestBody jobDescriptionDTO jobRequest) throws Exception {
+    public String userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
         return userService.getCoverLetter(jobRequest.getUserId(), jobRequest.getJobDescription());
     }
 

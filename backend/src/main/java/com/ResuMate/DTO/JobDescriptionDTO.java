@@ -1,6 +1,6 @@
 package com.ResuMate.DTO;
 
-public class jobDescriptionDTO {
+public class JobDescriptionDTO {
     private Long userId;
     private String jobDescription;
 
