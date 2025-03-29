@@ -1,5 +1,6 @@
 package com.ResuMate.Services;
 
+import com.ResuMate.DTO.JobDescriptionDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Util.ResumeUtil;
@@ -20,19 +21,32 @@ public class UserServiceImpl implements UserService{
 
     }
 
-    public String getCoverLetter(Long userId, String jobDescription) throws Exception {
-
-        UserModel user = getUserData(userId);
-        String response = ResumeUtil.getCoverLetterContent(user, jobDescription);
-
-        return response;
-    }
-
     public String getContent(String prompt) throws Exception {
 
         String content = ResumeUtil.generateContent(prompt);
 
         return content;
+
+    }
+
+    public String getCoverLetter(JobDescriptionDTO jobDescription) throws Exception {
+
+        UserModel user = getUserData(jobDescription.getUserId());
+        String response = ResumeUtil.getCoverLetterContent(user, jobDescription.getJobDescription());
+        return response;
+
+    }
+
+    public byte[] createCoverLetter(JobDescriptionDTO jobDescription) {
+
+        UserModel user = getUserData(jobDescription.getUserId());
+        byte[] coverLetter = new byte[0];
+        try{
+            coverLetter = ResumeUtil.generateCoverLetter(user, jobDescription.getJobDescription());
+            return coverLetter;
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
 
     }
 
