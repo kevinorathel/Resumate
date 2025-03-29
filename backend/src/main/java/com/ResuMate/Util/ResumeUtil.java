@@ -48,7 +48,6 @@ public class ResumeUtil {
         ArrayList<String> userDegrees = new ArrayList<>();
         ArrayList<String> userExperiencesRoles = new ArrayList<>();
         ArrayList<String> userProjectName = new ArrayList<>();
-        ArrayList<String> userProjectDescription = new ArrayList<>();
 
         for(EducationModel education : user.getEducation()){
             userDegrees.add("\n" + education.getDegree() + " from " + education.getInstitution());
@@ -68,12 +67,12 @@ public class ResumeUtil {
                 ", my phone number is " + user.getPhone() + " and i live in " + user.getLocation() + ". " +
                 "I have the following degrees: " + userDegrees + " and i have experience doing the following: " +
                 userExperiencesRoles + ". I also have built the following projects: " + userProjectName +
-                " using the standard format for drafting a cover letter and the data that i have given you (do not use place holders), i" +
+                ". Using the standard format for drafting a cover letter and the data that i have given you (do not use place holders), i" +
                 " want you to generate a cover letter for the below job description: " + jobDescription +
                 " Again, do not use any placeholders (like [Your name]) and if some data " +
                 "(like the hiring manager's address) isn't available do not include such data.";
 
-        System.out.println(prompt);
+        //System.out.println(prompt);
 
         String modelResponse = generateContent(prompt);
 
