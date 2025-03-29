@@ -20,9 +20,17 @@ public class UserServiceImpl implements UserService{
 
     }
 
-    public String getContent() throws Exception {
+    public String getCoverLetter(Long userId, String jobDescription) throws Exception {
 
-        String content = ResumeUtil.generateContent();
+        UserModel user = getUserData(userId);
+        String response = ResumeUtil.getCoverLetterContent(user, jobDescription);
+
+        return response;
+    }
+
+    public String getContent(String prompt) throws Exception {
+
+        String content = ResumeUtil.generateContent(prompt);
 
         return content;
 

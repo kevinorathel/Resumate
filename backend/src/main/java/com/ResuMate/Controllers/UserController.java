@@ -1,5 +1,6 @@
 package com.ResuMate.Controllers;
 
+import com.ResuMate.DTO.jobDescriptionDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class UserController {
     }
 
     @GetMapping("/getContent")
-    public String getContent() throws Exception {
+    public String getContent(@RequestParam("prompt") String prompt) throws Exception {
 
-        return userService.getContent();
+        return userService.getContent(prompt);
     }
 
     @GetMapping("/userData")
@@ -37,6 +38,16 @@ public class UserController {
         return userService.getUserData(userId);
     }
 
+    @GetMapping("/genrateCV")
+    public String userData(@RequestParam("userId") Long userId, @RequestParam("jobDescription") String jobDescription) throws Exception {
+
+        return userService.getCoverLetter(userId, jobDescription);
+    }
+
+    @PostMapping("/generateCV")
+    public String userData(@RequestBody jobDescriptionDTO jobRequest) throws Exception {
+        return userService.getCoverLetter(jobRequest.getUserId(), jobRequest.getJobDescription());
+    }
 
 
 //    @GetMapping("/userData")
@@ -76,7 +87,7 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; " +
                 "filename="+user.getFirstName().replace(" ", "_")+"_"
-                +user.getLastName().replace(" ", "_")+"_"+ currentYear +"_Resume.pdf");
+                +user.getLastName().replace(" ", "_")+"_"+ currentYear +"_Cover_Letter.pdf");
         headers.add("Content-Type", "application/pdf");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);

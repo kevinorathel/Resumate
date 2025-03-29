@@ -4,6 +4,7 @@ import com.ResuMate.Models.EducationModel;
 import com.ResuMate.Models.ExperienceModel;
 import com.ResuMate.Models.ProjectModel;
 import com.ResuMate.Models.UserModel;
+import com.ResuMate.Repositories.UserRepository;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
@@ -20,6 +21,7 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.TextAlignment;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.swing.text.StyleConstants;
@@ -31,19 +33,53 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.Locale;
 
 
 public class ResumeUtil {
 
+    @Autowired
+    private UserRepository userRepository;
     private static final String API_KEY = System.getenv("GEMINI_API_KEY");
 
-    public static void fetchPromptResponse() throws IOException, InterruptedException {
+    public static String getCoverLetterContent(UserModel user, String jobDescription) throws Exception {
 
+        ArrayList<String> userDegrees = new ArrayList<>();
+        ArrayList<String> userExperiencesRoles = new ArrayList<>();
+        ArrayList<String> userProjectName = new ArrayList<>();
+        ArrayList<String> userProjectDescription = new ArrayList<>();
 
+        for(EducationModel education : user.getEducation()){
+            userDegrees.add("\n" + education.getDegree() + " from " + education.getInstitution());
+        }
+
+        for(ExperienceModel experience : user.getExperiences()){
+            userExperiencesRoles.add("\ni worked as a " + experience.getRole() +
+                    " where i did the following: \n" + experience.getDescription());
+        }
+
+        for(ProjectModel project : user.getProjects()){
+            userProjectName.add(project.getProjectName()
+                    + " where i did the following " + project.getProjectDescription());
+        }
+
+        String prompt = "My name is " + user.getFirstName() + " " + user.getLastName() + ", my email id is " + user.getEmail() +
+                ", my phone number is " + user.getPhone() + " and i live in " + user.getLocation() + ". " +
+                "I have the following degrees: " + userDegrees + " and i have experience doing the following: " +
+                userExperiencesRoles + ". I also have built the following projects: " + userProjectName +
+                " using the standard format for drafting a cover letter and the data that i have given you (do not use place holders), i" +
+                " want you to generate a cover letter for the below job description: " + jobDescription +
+                " Again, do not use any placeholders (like [Your name]) and if some data " +
+                "(like the hiring manager's address) isn't available do not include such data.";
+
+        System.out.println(prompt);
+
+        String modelResponse = generateContent(prompt);
+
+        return modelResponse;
 
     }
-
 
     public static byte[] generateResume(UserModel user) throws IOException {
 
@@ -148,16 +184,15 @@ public class ResumeUtil {
 
     }
 
-    public static String generateContent() throws Exception {
+    public static String generateContent(String prompt) throws Exception {
 
-        String content = "Tell me something about myself";
+//        String content = "What career can i pursue in Comp Sc";
         String model = "gemini-2.0-flash";
 
         String BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
 
-
         JSONObject textPart = new JSONObject();
-        textPart.put("text", content);
+        textPart.put("text", prompt);
 
         JSONObject parts = new JSONObject();
         parts.put("parts", new JSONArray().put(textPart));
@@ -185,7 +220,7 @@ public class ResumeUtil {
 
                 if (!parts.isEmpty()) {
                     String text = part.getJSONObject(0).getString("text");
-                    System.out.println("Extracted Text: " + text);
+                    //System.out.println("Extracted Text: " + text);
                     return text;
                 } else {
                     return "No text found in parts array.";
