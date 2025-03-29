@@ -37,7 +37,7 @@ public class UserController {
         return userService.getUserData(userId);
     }
 
-    @PostMapping("/generateCoverLetterContent")
+    @PostMapping("/getCoverLetterContent")
     public String userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
         return userService.getCoverLetter(jobRequest);
     }
