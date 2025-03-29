@@ -37,30 +37,30 @@ public class UserController {
         return userService.getUserData(userId);
     }
 
-    @GetMapping("/genrateCV")
-    public String userData(@RequestParam("userId") Long userId, @RequestParam("jobDescription") String jobDescription) throws Exception {
-
-        return userService.getCoverLetter(userId, jobDescription);
-    }
-
-    @PostMapping("/generateCV")
+    @PostMapping("/generateCoverLetterContent")
     public String userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
-        return userService.getCoverLetter(jobRequest.getUserId(), jobRequest.getJobDescription());
+        return userService.getCoverLetter(jobRequest);
     }
 
+    @PostMapping("/generateCoverLetter")
+    public ResponseEntity<byte[]> createCoverLetter(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
 
-//    @GetMapping("/userData")
-//    public ResponseEntity<UserModel> userData(@RequestParam("userId") Long userId) throws IOException {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "inline; " +
-//                "filename="+user.getFirstName().replace(" ", "_")+"_"
-//                +user.getLastName().replace(" ", "_")+"_"+ currentYear +"_Resume.pdf");
-//        headers.add("Content-Type", "application/pdf");
-//
-//        UserModel user = userService.getUserData(userId);
-//
-//        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-//    }
+        //return userService.getCoverLetter(jobRequest);
+
+        byte[] pdfBytes = userService.createCoverLetter(jobRequest);
+        UserModel user = userService.getUserData(jobRequest.getUserId());
+        int currentYear = java.time.Year.now().getValue();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; " +
+                "filename="+user.getFirstName().replace(" ", "_")+"_"
+                +user.getLastName().replace(" ", "_")+"_"+ currentYear +"_Cover_Letter.pdf");
+        headers.add("Content-Type", "application/pdf");
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+
+
+    }
 
     @GetMapping("/generateResume")
     public ResponseEntity<byte[]> createResume(@RequestParam("userId") Long userId) throws IOException {
@@ -77,18 +77,4 @@ public class UserController {
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/generateCoverLetter")
-    public ResponseEntity<byte[]> createCoverLetter(@RequestParam("userId") Long userId) throws IOException {
-        byte[] pdfBytes = userService.createResume(userId);
-        UserModel user = userService.getUserData(userId);
-        int currentYear = java.time.Year.now().getValue();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; " +
-                "filename="+user.getFirstName().replace(" ", "_")+"_"
-                +user.getLastName().replace(" ", "_")+"_"+ currentYear +"_Cover_Letter.pdf");
-        headers.add("Content-Type", "application/pdf");
-
-        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-    }
 }

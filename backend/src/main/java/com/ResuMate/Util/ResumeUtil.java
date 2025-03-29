@@ -1,5 +1,6 @@
 package com.ResuMate.Util;
 
+import com.ResuMate.DTO.JobDescriptionDTO;
 import com.ResuMate.Models.EducationModel;
 import com.ResuMate.Models.ExperienceModel;
 import com.ResuMate.Models.ProjectModel;
@@ -19,6 +20,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.TextAlignment;
+import org.apache.catalina.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +72,17 @@ public class ResumeUtil {
                 ". Using the standard format for drafting a cover letter and the data that i have given you (do not use place holders), i" +
                 " want you to generate a cover letter for the below job description: " + jobDescription +
                 " Again, do not use any placeholders (like [Your name]) and if some data " +
-                "(like the hiring manager's address) isn't available do not include such data.";
-
-        //System.out.println(prompt);
+                "(like the hiring manager's address) isn't available do not include such data. Make sure the cover letter you draft only " +
+                "is catered to my skills and experience and only includes the data i gave you. If the job description mentions something " +
+                "that is not there in the my experience that i have given you, i want you to mention that i am open to learning these skills ";
 
         String modelResponse = generateContent(prompt);
+
+        String prompt2 = "In the below text, remove everything which is inside [] and give me only the cleaned text as output." +
+                "Also rephrase/remove any sentences that may seem awkward after you remove these spaces " +
+                "i don't want anything else in the response: " + modelResponse;
+
+        modelResponse = generateContent(prompt2);
 
         return modelResponse;
 
@@ -177,6 +185,28 @@ public class ResumeUtil {
         }
 
         document.add(new Paragraph().setFixedLeading(10));
+
+        document.close();
+        return outputStream.toByteArray();
+
+    }
+
+    public static byte[] generateCoverLetter(UserModel user, String jobDescription) throws Exception {
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PdfWriter writer = new PdfWriter(outputStream);
+        PdfDocument pdfDocument = new PdfDocument(writer);
+        Document document = new Document(pdfDocument);
+
+        PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+
+        if(user != null){
+            String content = getCoverLetterContent(user, jobDescription);
+
+            document.add(new Paragraph(content)
+                    .setFont(font)
+                    .setFontSize(11));
+        }
 
         document.close();
         return outputStream.toByteArray();
