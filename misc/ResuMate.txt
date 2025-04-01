@@ -1,0 +1,93 @@
+Resumate
+
+
+
+1. Define Scope & Features
+Decide on the MVP (Minimum Viable Product) features:
+> User inputs personal details (name, experience, skills, etc.)
+> User provides a job description
+> AI generates a tailored resume
+> Download resume as PDF
+
+(Optional: Cover letter generator, resume templates, job tracker, etc.)
+
+
+2. Choose Tech Stack
+Frontend:
+
+React (for UI)
+TailwindCSS/Material-UI (for styling)
+Backend:
+
+Java (Spring Boot) for API development
+Gemini API for AI-generated resume content
+MySQL Database (if needed for user profiles & saved resumes):
+
+MySQL for structured data
+MongoDB for flexible storage
+
+
+3. Set Up the Development Environment
+Initialize a React project:
+sh
+Copy
+Edit
+npx create-react-app resume-builder
+cd resume-builder
+npm install
+Set up a FastAPI (Python) backend:
+sh
+Copy
+Edit
+pip install fastapi uvicorn openai
+Create an API key for OpenAI and store it securely.
+
+
+4. Build the UI (Frontend)
+Create a form for user input (Name, Experience, Skills, Job Description).
+Add a preview section to display the generated resume.
+Add a download as PDF button (Use react-to-print or jspdf).
+
+
+5. Implement the AI Logic (Backend)
+Send user details & job description to the Gemini API:
+
+
+def generate_resume(user_data, job_description):  
+    prompt = f"Generate a resume for {user_data} based on this job: {job_description}"  
+    response = openai.ChatCompletion.create(  
+        model="gpt-4",  
+        messages=[{"role": "system", "content": prompt}]  
+    )  
+    return response["choices"][0]["message"]["content"]  
+Return the generated resume to the frontend.
+
+
+6. Connect Frontend & Backend
+Use Axios to send requests from React to FastAPI/Spring Boot.
+Display the generated resume dynamically.
+
+
+7. Add Export Functionality
+Use jsPDF or react-to-print to enable PDF downloads.
+Allow saving resumes in the database for future edits.
+
+
+8. Deploy & Test
+Frontend: Vercel/Netlify
+Backend: Render/Fly.io/Heroku
+Database: Supabase (if using PostgreSQL)
+Next Steps & Enhancements
+Improve Resume Formatting: Add predefined resume templates.
+AI Enhancements: Make the AI refine and improve bullet points.
+Cover Letter Generator: Extend AI to generate cover letters.
+User Accounts: Allow users to save multiple resumes.
+
+
+
+** Main Dependencies to add in a Springboot project **
+
+1. Hibernate (For hibernate things)
+2. MySQL Driver (Or any db driver)
+3. SpringWeb (To build RESTful applications)
+

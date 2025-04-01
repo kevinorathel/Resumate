@@ -21,15 +21,14 @@ public class UserServiceImpl implements UserService{
 
     }
 
-    public String getContent(String prompt) throws Exception {
+    public String getAIGeneratedContent(String prompt) throws Exception {
 
         String content = ResumeUtil.generateContent(prompt);
-
         return content;
 
     }
 
-    public String getCoverLetter(JobDescriptionDTO jobDescription) throws Exception {
+    public String getCoverLetterContent(JobDescriptionDTO jobDescription) throws Exception {
 
         UserModel user = getUserData(jobDescription.getUserId());
         String response = ResumeUtil.getCoverLetterContent(user, jobDescription.getJobDescription());
