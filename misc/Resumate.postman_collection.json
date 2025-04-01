@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "18493573-bc85-446b-aa68-c7d07fe693f8",
+		"name": "Resumate",
+		"description": "These are the local API's that are provided by resumate.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27138972"
+	},
+	"item": [
+		{
+			"name": "Testing API",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/TestAPI",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"TestAPI"
+					]
+				},
+				"description": "Test API to ensure that the backend is up"
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Content",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/getContent?prompt=What careers can i get into with a degree in Computer Science",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"getContent"
+					],
+					"query": [
+						{
+							"key": "prompt",
+							"value": "What careers can i get into with a degree in Computer Science"
+						}
+					]
+				},
+				"description": "Generate text-content based on a given prompt. The request should have a single parameter\n\n- prompt: A prompt with which the AI should generate content"
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Cover Letter content",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 1,\r\n  \"jobDescription\": \"Who We Are Looking For The Software Engineer Intern/Co-op will work directly within one of our product development groups in our engineering team. Our software engineering team is made up of 170+ of the top Software and QA Engineers in the industry. The Intern/Co-op will work with one or more specific modules of the product and several instrument types (i.e., equity, fixed income, derivatives, FX, etc.). The Software Engineer Intern/Co-op will assist in developing the user interface (C#) and/or related server side systems (Java) of the Charles River Investment Management System. He/she will also champion quality and be responsible for the verification and validation process for Charles River products. This role promotes growth in technical areas, as well as expertise in the financial market space. Why this role is important to us The team you will be joining is a part of Charles River Development (or CRD), that became a part of State Street in 2018. CRD helps create enterprise investment management software solutions for large institutions in the areas of institutional investment, wealth management and hedge funds. Together we have created first open front-to-back platform - State Street Alpha, that was launched in 2019. Join us if delivering next generation infrastructure, using emerging technologies like AI and Blockchain sounds like a challenge you are up for. What You Will Be Responsible For As Software Intern you will Writing programs in Java/C# Bug fixing in Java/C#/SQL Creating, executing, and monitoring Java unit and automation tests within framework Writing and running performance scripts Assisting with data mappings for interfaces Validating system enhancements, fixes, and user workflows Maintaining development and test environments by upgrading and maintaining databases and servers Gaining experience in a number of financial areas, including: trade order management, portfolio management, fixed income, compliance, equity, derivatives, real time pricing, analytics, etc. What We Value Strong work ethic Ability to adapt to change and learn new skills quickly Excellent communication and interpersonal skills Any exposure to the financial industry a strong plus but not required Flexibility and ability to work in a very fast paced environment Education & Preferred Qualifications Enrollment in a Computer Science undergraduate or graduate program at a leading college or university Some level of programming skills in Java, C#, SQL, Perl, XML, etc. Exposure to some of the following concepts: object oriented programming, data structures, software engineering techniques, quality assurance, parallel programming, databases, networking, etc. Salary Range $15,600 - $58,500 Annual The range quoted above applies to the role in the primary location specified. If the candidate would ultimately work outside of the primary location above, the applicable range could differ. Job Application Disclosure It is unlawful in Massachusetts to require or administer a lie detector test as a condition of employment or continued employment. An employer who violates this law shall be subject to criminal penalties and civil liability. State Street's Speak Up Line Job ID: R-769046 \"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/getCoverLetterContent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"getCoverLetterContent"
+					]
+				},
+				"description": "Generate content for a cover letter for a given job description. The body of the request should have 2 parameters :-\n\n- userId: Id of the user corresponding to the database\n    \n- jobDescription: The job description of the position the user is applying to"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Cover Letter",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 1,\r\n  \"jobDescription\": \"Who We Are Looking For The Software Engineer Intern/Co-op will work directly within one of our product development groups in our engineering team. Our software engineering team is made up of 170+ of the top Software and QA Engineers in the industry. The Intern/Co-op will work with one or more specific modules of the product and several instrument types (i.e., equity, fixed income, derivatives, FX, etc.). The Software Engineer Intern/Co-op will assist in developing the user interface (C#) and/or related server side systems (Java) of the Charles River Investment Management System. He/she will also champion quality and be responsible for the verification and validation process for Charles River products. This role promotes growth in technical areas, as well as expertise in the financial market space. Why this role is important to us The team you will be joining is a part of Charles River Development (or CRD), that became a part of State Street in 2018. CRD helps create enterprise investment management software solutions for large institutions in the areas of institutional investment, wealth management and hedge funds. Together we have created first open front-to-back platform - State Street Alpha, that was launched in 2019. Join us if delivering next generation infrastructure, using emerging technologies like AI and Blockchain sounds like a challenge you are up for. What You Will Be Responsible For As Software Intern you will Writing programs in Java/C# Bug fixing in Java/C#/SQL Creating, executing, and monitoring Java unit and automation tests within framework Writing and running performance scripts Assisting with data mappings for interfaces Validating system enhancements, fixes, and user workflows Maintaining development and test environments by upgrading and maintaining databases and servers Gaining experience in a number of financial areas, including: trade order management, portfolio management, fixed income, compliance, equity, derivatives, real time pricing, analytics, etc. What We Value Strong work ethic Ability to adapt to change and learn new skills quickly Excellent communication and interpersonal skills Any exposure to the financial industry a strong plus but not required Flexibility and ability to work in a very fast paced environment Education & Preferred Qualifications Enrollment in a Computer Science undergraduate or graduate program at a leading college or university Some level of programming skills in Java, C#, SQL, Perl, XML, etc. Exposure to some of the following concepts: object oriented programming, data structures, software engineering techniques, quality assurance, parallel programming, databases, networking, etc. Salary Range $15,600 - $58,500 Annual The range quoted above applies to the role in the primary location specified. If the candidate would ultimately work outside of the primary location above, the applicable range could differ. Job Application Disclosure It is unlawful in Massachusetts to require or administer a lie detector test as a condition of employment or continued employment. An employer who violates this law shall be subject to criminal penalties and civil liability. State Street's Speak Up Line Job ID: R-769046 \"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/generateCoverLetter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"generateCoverLetter"
+					]
+				},
+				"description": "Creates a cover letter in a PDF format for a given job description based on the user's qualifications.  \nThe body has 2 parameters :-\n\n- userId: Id of the user corresponding to the database\n    \n- jobDescription: The job description of the position the user is applying to"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Resume",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/generateResume?userId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"generateResume"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Creates a PDF format resume for the user. The request has 1 parameter.\n\n- userId: Id of the user corresponding to the database"
+			},
+			"response": []
+		}
+	]
+}
