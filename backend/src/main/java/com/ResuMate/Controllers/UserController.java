@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/getContent")
     public String getContent(@RequestParam("prompt") String prompt) throws Exception {
 
-        return userService.getContent(prompt);
+        return userService.getAIGeneratedContent(prompt);
     }
 
     @GetMapping("/userData")
@@ -39,7 +39,7 @@ public class UserController {
 
     @PostMapping("/getCoverLetterContent")
     public String userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
-        return userService.getCoverLetter(jobRequest);
+        return userService.getCoverLetterContent(jobRequest);
     }
 
     @PostMapping("/generateCoverLetter")
