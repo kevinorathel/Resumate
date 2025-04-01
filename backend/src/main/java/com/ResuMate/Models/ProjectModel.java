@@ -2,6 +2,7 @@ package com.ResuMate.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.Length;
 
 import java.util.Date;
 
@@ -13,6 +14,7 @@ public class ProjectModel {
     public Long id;
     public String projectName;
     public Date projectDate;
+    @Column(length = 1500)
     public String projectDescription;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

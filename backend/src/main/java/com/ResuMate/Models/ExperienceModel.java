@@ -15,6 +15,7 @@ public class ExperienceModel {
     public String role;
     public Date startDate;
     public Date endDate;
+    @Column(length = 1500)
     public String description;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
