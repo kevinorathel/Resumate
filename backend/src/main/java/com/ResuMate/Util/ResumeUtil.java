@@ -84,7 +84,9 @@ public class ResumeUtil {
 
         modelResponse = generateContent(prompt2);
 
-        String prompt3 = "Humanize the below text: " + modelResponse;
+        String prompt3 = "Humanize the below text. I only want the changed text in the response, i do not want any explanation" +
+                " or anything else but the new changed text in the response. The only thing i want you to" +
+                " ensure is that the standard format for the cover letter remains intact \n: " + modelResponse;
 
         modelResponse = generateContent(prompt3);
 
