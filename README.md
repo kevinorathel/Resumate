@@ -1,7 +1,7 @@
 
 # Resumate
 
-ResuMate is an application that helps people write great ATS proof resumes easily. Once the user signs up and logins in, they will be prompted to give some basic information about themselves such as their education, experience etc.. and resumate will generate a resume for you. 
+ResuMate is an application that helps people write great ATS proof resumes easily. Once the user signs up and logins in, they will be prompted to give some information about themselves such as their education, experience etc.. and resumate will generate a resume for you. 
 
 ## Screenshots
 
