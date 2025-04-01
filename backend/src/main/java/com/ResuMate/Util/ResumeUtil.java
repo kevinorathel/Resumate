@@ -84,6 +84,10 @@ public class ResumeUtil {
 
         modelResponse = generateContent(prompt2);
 
+        String prompt3 = "Humanize the below text: " + modelResponse;
+
+        modelResponse = generateContent(prompt3);
+
         return modelResponse;
 
     }
