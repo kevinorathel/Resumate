@@ -1,0 +1,62 @@
+Resumate
+
+*** Calculating Job Description to User Profile Score ***
+
+	1. TF-IDF (Term Frequency):
+
+		-> Caculate the frequency of the terms in the 'User's Profile' and the 'Job Description'
+		-> Find the cosine similarity score between the two
+		-> If the similarity score is above a threshold (high value, 80 maybe?), cover letter is generated
+		-> If the similarity score is below the threshold, the delta (user score - jd score) is figured and the user can be shown what that delta is in terms of skills?
+
+
+*** Roadmap ***
+
+	1. Define Scope & Features
+		Decide on the MVP (Minimum Viable Product) features:
+		> User inputs personal details (name, experience, skills, etc.)
+		> User provides a job description
+		> AI generates a tailored resume
+		> Download resume as PDF
+
+		(Optional: Cover letter generator, resume templates, job tracker, etc.)
+
+
+	2. Tech Stack
+		
+		Frontend:
+
+			React (for UI)
+			TailwindCSS/Material-UI (for styling)
+		Backend:
+
+			Java (Spring Boot) for API development
+			Gemini API for AI-generated resume content
+			MySQL Database (if needed for user profiles & saved resumes):
+
+			MySQL for structured data
+			MongoDB for flexible storage
+
+
+
+	8. Deploy & Test
+		Frontend: Vercel/Netlify
+		Backend: Render/Fly.io/Heroku
+		Database: Supabase (if using PostgreSQL)
+
+
+***Next Steps & Enhancements***
+
+	Improve Resume Formatting: Add predefined resume templates.
+	AI Enhancements: Make the AI refine and improve bullet points.
+	Cover Letter Generator: Extend AI to generate cover letters.
+	User Accounts: Allow users to save multiple resumes.
+
+
+
+** Main Dependencies to add in a Springboot project **
+
+	1. Hibernate (For hibernate things)
+	2. MySQL Driver (Or any db driver)
+	3. SpringWeb (To build RESTful applications)
+
