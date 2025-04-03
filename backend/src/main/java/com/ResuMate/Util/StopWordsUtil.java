@@ -27,14 +27,11 @@ public class StopWordsUtil {
             "you", "your", "yours", "yourself", "yourselves"
     ));
 
-    // Method to filter stop words from the input text
     public static String filterStopWords(String inputText) {
-        // Split the input text into words
         List<String> words = Arrays.asList(inputText.split("\\s+"));
 
-        // Remove the stop words and join the remaining words into a single string
         return words.stream()
-                .filter(word -> !STOP_WORDS.contains(word.toLowerCase()))  // Convert to lowercase for case-insensitivity
+                .filter(word -> !STOP_WORDS.contains(word.toLowerCase()))
                 .collect(Collectors.joining(" "));
     }
 

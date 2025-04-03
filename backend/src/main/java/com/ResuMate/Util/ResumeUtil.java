@@ -20,13 +20,10 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.TextAlignment;
-import org.apache.catalina.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-import javax.swing.text.StyleConstants;
 import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -36,7 +33,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class ResumeUtil {
@@ -215,6 +214,30 @@ public class ResumeUtil {
         if(user != null){
             String content = getCoverLetterContent(user, jobDescription);
 
+            ArrayList<String> userDegrees = new ArrayList<>();
+            ArrayList<String> userExperiencesRoles = new ArrayList<>();
+            ArrayList<String> userProjectName = new ArrayList<>();
+
+            for(EducationModel education : user.getEducation()){
+                userDegrees.add("\n" + education.getDegree() + ", " + education.getInstitution());
+            }
+
+            for(ExperienceModel experience : user.getExperiences()){
+                userExperiencesRoles.add(" " + experience.getRole() + " , " + experience.getDescription());
+            }
+
+            for(ProjectModel project : user.getProjects()){
+                userProjectName.add(project.getProjectName() + ", " + project.getProjectDescription());
+            }
+
+            String userProfile = userDegrees + ", " + userExperiencesRoles + ", " + userProjectName;
+
+            Map<String, Integer> profileTF = getTermFrequencies(userProfile);
+            Map<String, Integer> jobTF = getTermFrequencies(jobDescription);
+
+            double similarity = cosineSimilarity(profileTF, jobTF);
+            System.out.println("Similarity Score: " + similarity);
+
             document.add(new Paragraph(content)
                     .setFont(font)
                     .setFontSize(11));
@@ -227,7 +250,6 @@ public class ResumeUtil {
 
     public static String generateContent(String prompt) throws Exception {
 
-//        String content = "What career can i pursue in Comp Sc";
         String model = "gemini-2.0-flash";
 
         String BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
@@ -272,6 +294,37 @@ public class ResumeUtil {
         } else {
             return "Error: " + httpResponse.statusCode() + " - " + httpResponse.body();
         }
+    }
+
+    public static Map<String, Integer> getTermFrequencies(String text) throws IOException {
+
+        String filteredText = StopWordsUtil.filterStopWords(text);
+
+        Map<String, Integer> termFreq = new HashMap<>();
+        String[] words = filteredText.split("\\s+");
+        for (String word : words) {
+            termFreq.put(word, termFreq.getOrDefault(word, 0) + 1);
+        }
+        return termFreq;
+    }
+
+    public static double cosineSimilarity(Map<String, Integer> vec1, Map<String, Integer> vec2) {
+        double dotProduct = 0, normA = 0, normB = 0;
+
+        for (String key : vec1.keySet()) {
+            dotProduct += vec1.getOrDefault(key, 0) * vec2.getOrDefault(key, 0);
+            normA += Math.pow(vec1.get(key), 2);
+        }
+
+        for (int val : vec2.values()) {
+            normB += Math.pow(val, 2);
+        }
+
+        if (normA == 0 || normB == 0) {
+            return 0.0;
+        }
+
+        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
     }
 
     private static LineSeparator getLineSeparator() {

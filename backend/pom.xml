@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.resumate</groupId>
 	<artifactId>Resumate</artifactId>
-	<version>0.0.8-SNAPSHOT</version>
+	<version>0.0.9</version>
 	<name>Resumate</name>
 	<description>The backend for ResuMate</description>
 	<url/>
@@ -60,11 +60,14 @@
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
-			<artifactId>itext7-core</artifactId>
+			<artifactId>kernel</artifactId>
 			<version>7.2.2</version>
 		</dependency>
-
-		<!-- Jackson for YAML parsing -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>layout</artifactId>
+			<version>7.2.2</version>
+		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
