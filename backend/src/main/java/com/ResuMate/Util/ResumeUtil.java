@@ -65,9 +65,12 @@ public class ResumeUtil {
                     + " where i did the following " + project.getProjectDescription());
         }
 
-        String prompt = "My name is " + user.getFirstName() + " " + user.getLastName() + ", my email id is " + user.getEmail() +
-                ", my phone number is " + user.getPhone() + " and i live in " + user.getLocation() + ". " +
-                "I have the following degrees: " + userDegrees + " and i have experience doing the following: " +
+        String prompt = "My name is " + user.getFirstName() + " "
+                + (user.getMiddleName() != null && !user.getMiddleName().isEmpty()
+                        ? user.getMiddleName() : "")
+                + user.getLastName() +
+                ", my email id is " + user.getEmail() +", my phone number is " + user.getPhone() + " and i live in "
+                + user.getLocation() + ". I have the following degrees: " + userDegrees + " and i have experience doing the following: " +
                 userExperiencesRoles + ". I also have built the following projects: " + userProjectName +
                 ". Using the standard format for drafting a cover letter and the data that i have given you (do not use place holders), i" +
                 " want you to generate a cover letter for the below job description: " + jobDescription +
@@ -107,7 +110,10 @@ public class ResumeUtil {
         Link linkedInLink = new Link("LinkedIn", PdfAction.createURI(user.getLinkedIn()));
         Link portfolioLink = new Link("Portfolio", PdfAction.createURI(user.getWebsite()));
 
-        document.add(new Paragraph(user.getFirstName() + " " + user.getLastName())
+        document.add(new Paragraph(user.getFirstName() + " " +
+                (user.getMiddleName() != null && !user.getMiddleName().isEmpty()
+                        ? user.getMiddleName() : "") +
+                " " + user.getLastName())
                 .setFont(timesBold)
                 .setFontSize(20)
                 .setTextAlignment(TextAlignment.CENTER));

@@ -4,6 +4,8 @@ public class JobDescriptionDTO {
     private Long userId;
     private String jobDescription;
 
+    private String companyName;
+
     public Long getUserId() {
         return userId;
     }
@@ -18,5 +20,13 @@ public class JobDescriptionDTO {
 
     public void setJobDescription(String jobDescription) {
         this.jobDescription = jobDescription;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

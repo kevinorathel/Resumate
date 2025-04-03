@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 09:42 PM
+-- Generation Time: Apr 03, 2025 at 06:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -98,6 +98,7 @@ CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
+  `middle_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `linked_in` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
@@ -111,8 +112,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `first_name`, `last_name`, `linked_in`, `location`, `password`, `phone`, `summary`, `website`) VALUES
-(1, 'kevin.orathel@gmail.com', 'Kevin Mathew', 'Joseph', 'https://www.linkedin.com/in/kevin-joseph-360630208/', 'Worcester, MA', 'kevin123', '+1 (508) 926-9729', 'Motivated and detail-oriented software developer with expertise in Java, HTML, JavaScript, Typescript, and\r\nCSS. Experienced in both front-end and back-end development, seeking to take the next career step with a\r\nrespected firm.', 'https://github.com/kevinorathel');
+INSERT INTO `user` (`id`, `email`, `first_name`, `middle_name`, `last_name`, `linked_in`, `location`, `password`, `phone`, `summary`, `website`) VALUES
+(1, 'kevin.orathel@gmail.com', 'Kevin', 'Mathew', 'Joseph', 'https://www.linkedin.com/in/kevin-joseph-360630208/', 'Worcester, MA', 'kevin123', '+1 (508) 926-9729', 'Motivated and detail-oriented software developer with expertise in Java, HTML, JavaScript, Typescript, and\r\nCSS. Experienced in both front-end and back-end development, seeking to take the next career step with a\r\nrespected firm.', 'https://github.com/kevinorathel');
 
 --
 -- Indexes for dumped tables

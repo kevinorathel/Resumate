@@ -45,20 +45,17 @@ public class UserController {
     @PostMapping("/generateCoverLetter")
     public ResponseEntity<byte[]> createCoverLetter(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
 
-        //return userService.getCoverLetter(jobRequest);
-
         byte[] pdfBytes = userService.createCoverLetter(jobRequest);
         UserModel user = userService.getUserData(jobRequest.getUserId());
-        int currentYear = java.time.Year.now().getValue();
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; " +
                 "filename="+user.getFirstName().replace(" ", "_")+"_"
-                +user.getLastName().replace(" ", "_")+"_"+ currentYear +"_Cover_Letter.pdf");
+                +user.getLastName().replace(" ", "_")+"_" + "_CoverLetter_" +
+                jobRequest.getCompanyName().replace(" ", "_") + ".pdf");
         headers.add("Content-Type", "application/pdf");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-
 
     }
 
