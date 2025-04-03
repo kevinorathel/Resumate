@@ -3,6 +3,7 @@ com\ResuMate\Services\UserServiceImpl.class
 com\ResuMate\DTO\ResumeDTO.class
 com\ResuMate\Models\UserModel.class
 com\ResuMate\ResumateApplication.class
+com\ResuMate\Util\StopWordsUtil.class
 com\ResuMate\Models\ProjectModel.class
 com\ResuMate\Models\EducationModel.class
 com\ResuMate\Models\ExperienceModel.class
