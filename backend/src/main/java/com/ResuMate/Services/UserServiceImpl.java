@@ -3,6 +3,7 @@ package com.ResuMate.Services;
 import com.ResuMate.DTO.JobDescriptionDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
+import com.ResuMate.Util.AESUtil;
 import com.ResuMate.Util.ResumeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,22 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    public Boolean userLogin(String email, String password){
+
+        UserModel user = userRepository.getUserByEmail(email);
+
+        if(user != null){
+
+            String realPassword = AESUtil.decryptPassword(user.getPassword());
+            return password.equals(realPassword);
+
+        }else{
+
+            return false;
+
+        }
+    }
+
     public String getAIGeneratedContent(String prompt) throws Exception {
 
         String content = ResumeUtil.generateContent(prompt);
@@ -30,8 +47,12 @@ public class UserServiceImpl implements UserService{
 
     public String getCoverLetterContent(JobDescriptionDTO jobDescription) throws Exception {
 
-        UserModel user = getUserData(jobDescription.getUserId());
-        String response = ResumeUtil.getCoverLetterContent(user, jobDescription.getJobDescription());
+        UserModel user = new UserModel();
+        String response = "";
+        if(jobDescription != null && jobDescription.getUserId() != null && jobDescription.getJobDescription() != null){
+            user = getUserData(jobDescription.getUserId());
+            response = ResumeUtil.getCoverLetterContent(user, jobDescription.getJobDescription());
+        }
         return response;
 
     }

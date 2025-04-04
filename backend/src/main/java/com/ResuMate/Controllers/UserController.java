@@ -25,6 +25,11 @@ public class UserController {
         return "All Good :)";
     }
 
+    @GetMapping("/login")
+    public Boolean login(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
+
+        return userService.userLogin(email, password);
+    }
     @GetMapping("/getContent")
     public String getContent(@RequestParam("prompt") String prompt) throws Exception {
 
