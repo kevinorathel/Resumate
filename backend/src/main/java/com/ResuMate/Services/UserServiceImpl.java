@@ -1,6 +1,7 @@
 package com.ResuMate.Services;
 
 import com.ResuMate.DTO.JobDescriptionDTO;
+import com.ResuMate.DTO.SignupDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Util.AESUtil;
@@ -20,6 +21,21 @@ public class UserServiceImpl implements UserService{
         UserModel user = userRepository.getUserById(userId);
         return user;
 
+    }
+
+    public Boolean userSignUp(SignupDTO signupDTO){
+
+        UserModel newUser = new UserModel();
+        if(signupDTO != null){
+
+            newUser.setEmail(signupDTO.getEmail());
+            String encryptedPassword = AESUtil.encryptPassword(signupDTO.getPassword());
+            newUser.setPassword(encryptedPassword);
+            userRepository.save(newUser);
+            return true;
+        }
+
+        return false;
     }
 
     public Boolean userLogin(String email, String password){

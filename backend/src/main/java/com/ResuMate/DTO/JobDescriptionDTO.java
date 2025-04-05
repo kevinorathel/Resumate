@@ -3,7 +3,6 @@ package com.ResuMate.DTO;
 public class JobDescriptionDTO {
     private Long userId;
     private String jobDescription;
-
     private String companyName;
 
     public Long getUserId() {
