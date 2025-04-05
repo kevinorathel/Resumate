@@ -1,6 +1,7 @@
 package com.ResuMate.Controllers;
 
 import com.ResuMate.DTO.JobDescriptionDTO;
+import com.ResuMate.DTO.SignupDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,18 @@ public class UserController {
     public String testApi() throws Exception {
 
         return "All Good :)";
+    }
+
+    @GetMapping("/login")
+    public Boolean login(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
+
+        return userService.userLogin(email, password);
+    }
+
+    @PostMapping("/signup")
+    public Boolean signup(@RequestBody SignupDTO signupDTO){
+
+        return userService.userSignUp(signupDTO);
     }
 
     @GetMapping("/getContent")
