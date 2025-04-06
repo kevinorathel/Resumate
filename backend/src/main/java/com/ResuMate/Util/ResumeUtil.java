@@ -129,9 +129,9 @@ public class ResumeUtil {
         document.add(new Paragraph(user.getSummary()).setFont(timesRoman));
         document.add(new Paragraph().setFixedLeading(10));
 
-        document.add(getLineSeparator());
 
         if( !user.getEducation().isEmpty() ){
+            document.add(getLineSeparator());
             document.add(new Paragraph("\nEDUCATION:").setFont(timesBold).setFontSize(13));
             List educationList = new List();
             for (EducationModel edu : user.getEducation()) {
@@ -146,9 +146,9 @@ public class ResumeUtil {
         }
 
         document.add(new Paragraph().setFixedLeading(10));
-        document.add(getLineSeparator());
 
         if( !user.getExperiences().isEmpty() ) {
+            document.add(getLineSeparator());
             document.add(new Paragraph("\nEXPERIENCE:").setFont(timesBold).setFontSize(13));
             for (ExperienceModel exp : user.getExperiences()) {
                 String startMonth = exp.getStartDate().toInstant()
@@ -180,9 +180,9 @@ public class ResumeUtil {
         }
 
         document.add(new Paragraph().setFixedLeading(10));
-        document.add(getLineSeparator());
 
         if( !user.getProjects().isEmpty() ){
+            document.add(getLineSeparator());
             document.add(new Paragraph("\nPROJECTS:").setFont(timesBold).setFontSize(13));
             for (ProjectModel proj : user.getProjects()) {
                 document.add(new Paragraph(proj.projectName +" (" + proj.getProjectDate().toInstant()

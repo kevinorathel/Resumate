@@ -29,6 +29,9 @@ public class UserServiceImpl implements UserService{
         if(signupDTO != null){
 
             newUser.setEmail(signupDTO.getEmail());
+            newUser.setFirstName(signupDTO.getFirstName());
+            newUser.setMiddleName(signupDTO.getMiddleName());
+            newUser.setLastName(signupDTO.getLastName());
             String encryptedPassword = AESUtil.encryptPassword(signupDTO.getPassword());
             newUser.setPassword(encryptedPassword);
             userRepository.save(newUser);
@@ -46,11 +49,9 @@ public class UserServiceImpl implements UserService{
 
             String realPassword = AESUtil.decryptPassword(user.getPassword());
             return password.equals(realPassword);
-
         }else{
 
             return false;
-
         }
     }
 
