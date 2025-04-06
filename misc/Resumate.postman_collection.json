@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "18493573-bc85-446b-aa68-c7d07fe693f8",
 		"name": "Resumate",
-		"description": "These are the local API's that are provided by resumate.",
+		"description": "These are the API's that are provided by resumate.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27138972"
 	},
@@ -28,6 +28,73 @@
 					]
 				},
 				"description": "Test API to ensure that the backend is up"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/login?email=email@gmail.com&password=password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "email@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "password"
+						}
+					]
+				},
+				"description": "Login into the user's account. This API request has two parameters:\n\n- email: Email Id of the user\n    \n- password: Password of the user"
+			},
+			"response": []
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"email@gmail.com\",\r\n    \"password\":\"password\",\r\n    \"firstName\":\"New\",\r\n    \"middleName\":\"\",\r\n    \"lastName\":\"User\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"signup"
+					]
+				},
+				"description": "Sign's up a new user. This API request has two parameters:\n\n- email: Email Id of the user\n    \n- password: Password of the user\n    \n- firstName: User's first name\n    \n- middleName: User's middle name\n    \n- lastName: User's last name"
 			},
 			"response": []
 		},
