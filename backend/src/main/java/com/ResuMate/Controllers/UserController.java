@@ -38,8 +38,8 @@ public class UserController {
         return userService.userSignUp(signupDTO);
     }
 
-    @GetMapping("/getContent")
-    public String getContent(@RequestParam("prompt") String prompt) throws Exception {
+    @PostMapping("/getContent")
+    public String getContent(@RequestBody String prompt) throws Exception {
 
         return userService.getAIGeneratedContent(prompt);
     }

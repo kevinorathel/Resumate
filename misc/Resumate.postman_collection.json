@@ -104,10 +104,19 @@
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"prompt\": \"What careers can i get into with a degree in Computer Science\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/user/getContent?prompt=What careers can i get into with a degree in Computer Science",
+					"raw": "http://localhost:8080/user/getContent",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -116,15 +125,9 @@
 					"path": [
 						"user",
 						"getContent"
-					],
-					"query": [
-						{
-							"key": "prompt",
-							"value": "What careers can i get into with a degree in Computer Science"
-						}
 					]
 				},
-				"description": "Generate text-content based on a given prompt. The request should have a single parameter\n\n- prompt: A prompt with which the AI should generate content"
+				"description": "Generate text-content based on a given prompt. The request body should have a single parameter\n\n- prompt: A prompt with which the AI should generate content"
 			},
 			"response": []
 		},
