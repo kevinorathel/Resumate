@@ -1,6 +1,7 @@
 package com.ResuMate.Controllers;
 
 import com.ResuMate.DTO.JobDescriptionDTO;
+import com.ResuMate.DTO.LoginDTO;
 import com.ResuMate.DTO.SignupDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Services.UserService;
@@ -26,10 +27,10 @@ public class UserController {
         return "All Good :)";
     }
 
-    @GetMapping("/login")
-    public Boolean login(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
+    @PostMapping("/login")
+    public Boolean login(@RequestBody LoginDTO loginDTO) throws Exception {
 
-        return userService.userLogin(email, password);
+        return userService.userLogin(loginDTO);
     }
 
     @PostMapping("/signup")

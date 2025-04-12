@@ -16,6 +16,7 @@ public class UserModel {
     private String middleName;
     private String lastName;
     private String password;
+    @Column(length = 1500)
     private String summary;
     private String email;
     private String linkedIn;
@@ -31,8 +32,6 @@ public class UserModel {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<ProjectModel> projects;
-
-    // Getters and Setters
 
     public Long getId() {
         return id;
