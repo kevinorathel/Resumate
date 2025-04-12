@@ -60,3 +60,40 @@ Resumate
 	2. MySQL Driver (Or any db driver)
 	3. SpringWeb (To build RESTful applications)
 
+
+** Resume Bullet point generation **
+
+AI generated
+
+•   Engineered RESTful APIs with pagination, boosting data retrieval efficiency by 30% and significantly improving application performance.
+•   Automated financial reporting via API development, cutting manual effort by 40% and ensuring accurate, timely data delivery to the finance department.
+•   Optimized complex SQL queries, decreasing average execution time by 25% and resolving critical database performance bottlenecks.
+•   Streamlined data flow across applications through database schema modifications and POJO class implementation.
+•   Fortified data security by implementing AES encryption for data at rest and in transit, proactively minimizing data breach risks.
+•   Orchestrated application deployments across diverse environments (development, staging, production) using Maven and Docker, ensuring consistent and 	reliable releases.
+•   Maintained backend system health, achieving 99.9% uptime and swift resolution of critical issues within defined SLAs.
+
+
+
+
+
+Original
+
+• Engineered and deployed RESTful APIs, optimizing data retrieval and reducing application load
+times.
+• Designed and implemented APIs to maintain pagination across various application pages.
+• Developed automated Excel report generation through new API endpoints, providing detailed data
+insights.
+• Maintained and executed bug fixes on automated Excel sheets using back-end code.
+• Provided support and maintenance for application issues, ensuring smooth operation and user
+satisfaction.
+• Designed and created databases and tables, ensuring clear and efficient relationships between
+different data sets.
+• Debugged and resolved database-related issues, improving system reliability.
+• Implemented complex SQL queries with join conditions to support API functionality.
+• Created new tables and implemented POJO classes to seamlessly transition data from the database
+to back-end code.
+• Enhanced data security by encrypting critical user information with AES encryption, mitigating
+potential data breaches by 90% and ensuring regulatory compliance.
+• Managed and ensured smooth deployment across various environments.
+
