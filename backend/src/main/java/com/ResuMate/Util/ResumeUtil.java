@@ -96,7 +96,7 @@ public class ResumeUtil {
 
     }
 
-    public static byte[] generateResume(UserModel user) throws IOException {
+    public static byte[] generateResume(UserModel user) throws Exception {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PdfWriter writer = new PdfWriter(outputStream);
@@ -109,9 +109,9 @@ public class ResumeUtil {
         Link linkedInLink = new Link("LinkedIn", PdfAction.createURI(user.getLinkedIn()));
         Link portfolioLink = new Link("Portfolio", PdfAction.createURI(user.getWebsite()));
 
-        document.add(new Paragraph(user.getFirstName() + " " +
+        document.add(new Paragraph(user.getFirstName() +
                 (user.getMiddleName() != null && !user.getMiddleName().isEmpty()
-                        ? user.getMiddleName() : "") +
+                        ? " " + user.getMiddleName() : "") +
                 " " + user.getLastName())
                 .setFont(timesBold)
                 .setFontSize(20)
@@ -128,7 +128,6 @@ public class ResumeUtil {
         document.add(new Paragraph().setFixedLeading(10));
         document.add(new Paragraph(user.getSummary()).setFont(timesRoman));
         document.add(new Paragraph().setFixedLeading(10));
-
 
         if( !user.getEducation().isEmpty() ){
             document.add(getLineSeparator());
@@ -200,6 +199,34 @@ public class ResumeUtil {
         document.close();
         return outputStream.toByteArray();
 
+    }
+
+    public static void createResumePoints() throws Exception{
+
+        String prompt = "I used to work as a Backend Engineer. Im going to give you a summary of what i did. " +
+                "Please don't give me any generic points (like using variables such as 'X' or 'Y'). " +
+                "I want you to use the data which i have given below " +
+                "I want you to give me some points that are professional which i can use in my resume:  \n" +
+                "  \n" +
+                "I designed and deployed RESTful APIs to optimize data retrieval and enhance application performance, " +
+                "including implementing pagination and I also made apis that automated finance reports for our company. " +
+                "I debugged and resolved database issues, " +
+                "and optimized complex SQL queries for efficient data handling. My work involved creating and modifying " +
+                "database schemas, building POJO classes for smooth data flow, and enhancing data security by implementing " +
+                "AES encryption on sensitive information—significantly reducing data breach risks. I also managed " +
+                "deployments using maven and docker across multiple environments and provided ongoing maintenance and support to ensure system " +
+                "stability and user satisfaction.";
+
+        String bulletContent = generateContent(prompt);
+
+        String prompt2 = "I want you to take the most important points from the below text (which i want to add to my resume)." +
+                " The points taken should be a bit unique from each other. If it's better to merge two or more statements to make " +
+                " it seem less generic then do that (only if it is required)" +
+                " Give me only the points and nothing more than that: \n " + bulletContent;
+
+        bulletContent = generateContent(prompt2);
+
+        System.out.println(bulletContent);
     }
 
     public static byte[] generateCoverLetter(UserModel user, String jobDescription) throws Exception {
