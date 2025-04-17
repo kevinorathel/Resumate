@@ -1,43 +1,70 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
+  const [confirmSignupPassword, setConfirmSignupPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!email.trim() || !password.trim()) {
       setError('Email and password are required');
       return;
     }
-    
-    // In a real app, you would make an API call here
-    // For this example, we'll just simulate a successful login
-    if (email === 'admin@example.com' && password === 'password') {
-      setError('');
-      // Call the onLogin prop to notify the parent component
-      if (onLogin) onLogin(email);
-    } else {
-      setError('Invalid credentials. Try admin@example.com/password');
-      // Show error message on the form
-      alert('Invalid credentials. Try admin@example.com/password');
-    }
+
+    // API call
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === true) {
+          setError('');
+          // Call the onLogin prop to notify the parent component
+          if (onLogin) onLogin(email);
+        } else {
+          setError('Invalid credentials');
+          alert('Invalid credentials');
+        }
+      })
+      .catch((error) => {
+        setError('An error occurred');
+        alert('An error occurred');
+      });
   };
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     
     // Basic validation
-    if (!name.trim() || !signupEmail.trim() || !signupPassword.trim()) {
+    if (!firstName.trim() 
+      // || !middleName.trim() || !lastName.trim() 
+    || !signupEmail.trim() || !signupPassword.trim() || !confirmSignupPassword.trim()) {
       setError('All fields are required');
       alert('All fields are required');
+      return;
+    }
+
+    if (signupPassword !== confirmSignupPassword) {
+      setError('Passwords do not match');
+      alert('Passwords do not match');
       return;
     }
     
@@ -46,9 +73,38 @@ const Login = ({ onLogin }) => {
     alert('Signup successful! Please log in.');
     
     // Reset the form
-    setName('');
+    setFirstName('');
+    setLastName('');
     setSignupEmail('');
     setSignupPassword('');
+    // API call
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: signupEmail,
+        password: signupPassword,
+        firstName: firstName,
+        lastName: lastName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert('Signup successful! Please log in.');
+      })
+      .catch((error) => {
+        setError('An error occurred');
+        alert('An error occurred');
+      });
+
+    // Reset the form
+    setFirstName('');
+    setLastName('');
+    setSignupEmail('');
+    setSignupPassword('');
+    setConfirmSignupPassword('');
     
     // Switch back to login
     const toggle = document.querySelector('.toggle');
@@ -92,10 +148,17 @@ const Login = ({ onLogin }) => {
                   <form className="flip-card__form" onSubmit={handleSignupSubmit}>
                     <input 
                       className="flip-card__input" 
-                      placeholder="Name" 
+                      placeholder="First Name" 
                       type="text" 
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                    <input 
+                      className="flip-card__input" 
+                      placeholder="Last Name" 
+                      type="text" 
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                     <input 
                       className="flip-card__input" 
@@ -113,18 +176,25 @@ const Login = ({ onLogin }) => {
                       value={signupPassword}
                       onChange={(e) => setSignupPassword(e.target.value)}
                     />
+                    <input 
+                      className="flip-card__input" 
+                      name="confirmPassword" 
+                      placeholder="Confirm Password" 
+                      type="password"
+                      value={confirmSignupPassword}
+                      onChange={(e) => setConfirmSignupPassword(e.target.value)}
+                    />
                     <button className="flip-card__btn">Confirm!</button>
                   </form>
                 </div>
               </div>
             </label>
+            <span style={{ marginLeft: '5px', verticalAlign: 'middle' }}>Login</span>
           </div>   
         </div>
       </LoginSection>
-      <ImageSection>
-        
-      </ImageSection>
-    </PageContainer>
+      <ImageSection />
+      </PageContainer>
   );
 }
 
@@ -139,7 +209,7 @@ const LoginSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  // background-color: #ffffff;
 
   .wrapper {
     --input-focus: #2d8cf0;
@@ -151,7 +221,7 @@ const LoginSection = styled.div`
   }
   /* switch card */
   .switch {
-    transform: translateY(-200px);
+    transform: translateY(-270px);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -165,7 +235,7 @@ const LoginSection = styled.div`
   .card-side::before {
     position: absolute;
     content: 'Log in';
-    left: -70px;
+    left: -90px;
     top: 0;
     width: 100px;
     text-decoration: underline;
@@ -176,7 +246,7 @@ const LoginSection = styled.div`
   .card-side::after {
     position: absolute;
     content: 'Sign up';
-    left: 70px;
+    left: 50px;
     top: 0;
     width: 100px;
     text-decoration: none;
