@@ -31,7 +31,7 @@ const UserProfile = () => {
         setFirstName(data.firstName);
         setLastName(data.lastName);
         setEmail(data.email);
-        setPhoneNumber(data.phone);
+        setPhoneNumber(data.phone); 
 
         setLocation(data.location);
 
