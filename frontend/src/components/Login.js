@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const URL = process.env.REACT_APP_API_BASE_URL;
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,8 @@ const Login = ({ onLogin }) => {
   const [signupPassword, setSignupPassword] = useState('');
   const [confirmSignupPassword, setConfirmSignupPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +26,7 @@ const Login = ({ onLogin }) => {
     }
 
     // API call
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/login`, {
+    fetch(`${URL}/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,10 +38,13 @@ const Login = ({ onLogin }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data === true) {
+        if (data.status === true) {
           setError('');
           // Call the onLogin prop to notify the parent component
-          if (onLogin) onLogin(email);
+          if (onLogin) {
+            onLogin(true, data.userId);
+          }
+          navigate('/dashboard');
         } else {
           setError('Invalid credentials');
           alert('Invalid credentials');
@@ -68,17 +74,13 @@ const Login = ({ onLogin }) => {
       return;
     }
     
-    // In a real app, you would register the user here
-    // For this example, we'll just simulate a successful signup
-    alert('Signup successful! Please log in.');
-    
     // Reset the form
     setFirstName('');
     setLastName('');
     setSignupEmail('');
     setSignupPassword('');
     // API call
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/signup`, {
+    fetch(`${URL}/user/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +101,6 @@ const Login = ({ onLogin }) => {
         alert('An error occurred');
       });
 
-    // Reset the form
     setFirstName('');
     setLastName('');
     setSignupEmail('');
