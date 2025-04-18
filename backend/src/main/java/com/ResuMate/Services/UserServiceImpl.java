@@ -7,6 +7,7 @@ import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Util.AESUtil;
 import com.ResuMate.Util.ResumeUtil;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,17 +43,25 @@ public class UserServiceImpl implements UserService{
         return false;
     }
 
-    public Boolean userLogin(LoginDTO loginDto){
+    public String userLogin(LoginDTO loginDto){
 
         UserModel user = userRepository.getUserByEmail(loginDto.getEmail());
+        JSONObject response = new JSONObject();
 
         if(user != null){
 
             String realPassword = AESUtil.decryptPassword(user.getPassword());
-            return loginDto.getPassword().equals(realPassword);
+            if(loginDto.getPassword().equals(realPassword)){
+                response.put("status", true);
+                response.put("userId", user.getId());
+            }
+            else{
+                response.put("status", false);
+            }
+            return response.toString();
         }else{
-
-            return false;
+            response.put("status", false);
+            return response.toString();
         }
     }
 

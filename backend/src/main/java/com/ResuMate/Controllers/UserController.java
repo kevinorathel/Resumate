@@ -5,6 +5,7 @@ import com.ResuMate.DTO.LoginDTO;
 import com.ResuMate.DTO.SignupDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Services.UserService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Boolean login(@RequestBody LoginDTO loginDTO) throws Exception {
+    public String login(@RequestBody LoginDTO loginDTO) throws Exception {
 
         return userService.userLogin(loginDTO);
     }
