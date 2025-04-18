@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../App';
-import PillButton from './PillButton';
-import PillText from './PillText';
 import { FaUser, FaFileAlt, FaEnvelope, FaPowerOff } from 'react-icons/fa';
+import { AuthContext } from '../App';
 
-const Home = () => {
+const ResumeGenerator = () => {
   const navigate = useNavigate();
   const { setIsAuthenticated, setUsername } = useContext(AuthContext);
 
@@ -22,15 +20,13 @@ const Home = () => {
         <SidebarOption to="/profile"><FaUser /> User Profile</SidebarOption>
         <SidebarOption to="/resume"><FaFileAlt /> Resume Generator</SidebarOption>
         <SidebarOption to="/coverletter"><FaEnvelope /> Cover Letter Generator</SidebarOption>
-      <LogoutButton onClick={handleLogout}><FaPowerOff style={{marginRight: '5px'}}/>Logout</LogoutButton>
+        <div style={{marginTop: 'auto'}}>
+          <LogoutButton onClick={handleLogout}><FaPowerOff style={{marginRight: '5px'}}/>Logout</LogoutButton>
+        </div>
       </Sidebar>
       <Content>
-        <h1>Dashboard</h1>
-        <PillText placeholder="Enter the job description here..." />
-        <br />
-        <div style={{ marginTop: '20px' }}>
-          <PillButton text="Generate Cover Letter" />
-        </div>
+        <h1>Resume Generator</h1>
+        <p>This is the resume generator page.</p>
       </Content>
     </HomePageContainer>
   );
@@ -83,4 +79,4 @@ const LogoutButton = styled.button`
   margin-top: auto;
 `;
 
-export default Home;
+export default ResumeGenerator;
