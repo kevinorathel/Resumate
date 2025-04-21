@@ -3,6 +3,7 @@ package com.ResuMate.Services;
 import com.ResuMate.DTO.JobDescriptionDTO;
 import com.ResuMate.DTO.LoginDTO;
 import com.ResuMate.DTO.SignupDTO;
+import com.ResuMate.DTO.UserDataDTO;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Util.AESUtil;
@@ -18,10 +19,27 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
-    public UserModel getUserData(Long userId){
+    public UserDataDTO getUserData(Long userId){
 
         UserModel user = userRepository.getUserById(userId);
-        return user;
+        UserDataDTO userDTO = new UserDataDTO();
+
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setMiddleName(user.getMiddleName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setLocation(user.getLocation());
+
+        userDTO.setPhone(user.getPhone());
+        userDTO.setEducation(user.getEducation());
+        userDTO.setExperiences(user.getExperiences());
+        userDTO.setProjects(user.getProjects());
+
+        userDTO.setSummary(user.getSummary());
+        userDTO.setWebsite(user.getWebsite());
+        userDTO.setLinkedIn(user.getLinkedIn());
+
+        return userDTO;
 
     }
 
@@ -77,7 +95,7 @@ public class UserServiceImpl implements UserService{
         UserModel user = new UserModel();
         String response = "";
         if(jobDescription != null && jobDescription.getUserId() != null && jobDescription.getJobDescription() != null){
-            user = getUserData(jobDescription.getUserId());
+            user = userRepository.getUserById(jobDescription.getUserId());
             response = ResumeUtil.getCoverLetterContent(user, jobDescription.getJobDescription());
         }
         return response;
@@ -86,7 +104,7 @@ public class UserServiceImpl implements UserService{
 
     public byte[] createCoverLetter(JobDescriptionDTO jobDescription) {
 
-        UserModel user = getUserData(jobDescription.getUserId());
+        UserModel user = userRepository.getUserById(jobDescription.getUserId());
         byte[] coverLetter = new byte[0];
         try{
             coverLetter = ResumeUtil.generateCoverLetter(user, jobDescription.getJobDescription());
@@ -99,7 +117,7 @@ public class UserServiceImpl implements UserService{
 
     public byte[] createResume(Long userId) {
 
-        UserModel user = getUserData(userId);
+        UserModel user = userRepository.getUserById(userId);
         byte[] resume = new byte[0];
         try{
             resume = ResumeUtil.generateResume(user);

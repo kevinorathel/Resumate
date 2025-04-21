@@ -8,8 +8,11 @@ com\ResuMate\Models\ProjectModel.class
 com\ResuMate\Models\EducationModel.class
 com\ResuMate\Models\ExperienceModel.class
 com\ResuMate\Services\UserService.class
+com\ResuMate\DTO\UserDataDTO.class
 com\ResuMate\Repositories\UserRepository.class
 com\ResuMate\DTO\SignupDTO.class
+com\ResuMate\Util\CORSGlobalConfig.class
+com\ResuMate\Util\CORSGlobalConfig$1.class
 com\ResuMate\Util\AESUtil.class
 com\ResuMate\Util\ResumeUtil.class
 com\ResuMate\Controllers\UserController.class
