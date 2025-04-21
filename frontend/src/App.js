@@ -8,6 +8,7 @@ import UserProfile from './components/UserProfile';
 import ResumeGenerator from './components/ResumeGenerator';
 import CoverLetterGenerator from './components/CoverLetterGenerator';
 import LandingPage from './components/LandingPage';
+import Dashboard from './components/Dashboard';
 
 export const AuthContext = createContext(null);
 
@@ -52,48 +53,44 @@ function App() {
             />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route
-            path="/home"
-            element={
-              isAuthenticated ? (
-                <CoverLetterGenerator username={username} onLogout={handleLogout} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              isAuthenticated ? (
-                <CoverLetterGenerator username={username} onLogout={handleLogout} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              isAuthenticated ? <UserProfile /> : <Navigate to="/" />
-            }
-          />
-          <Route
-            path="/resume"
-            element={
-              isAuthenticated ? <ResumeGenerator /> : <Navigate to="/" />
-            }
-          />
-          <Route
-            path="/coverletter"
-            element={
-              isAuthenticated ? (
-                <CoverLetterGenerator />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-        </Routes>
+              path="/home"
+              element={
+                isAuthenticated ? (
+                  <CoverLetterGenerator username={username} onLogout={handleLogout} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                isAuthenticated ? <Dashboard /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                isAuthenticated ? <UserProfile /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/resume"
+              element={
+                isAuthenticated ? <ResumeGenerator /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/coverletter"
+              element={
+                isAuthenticated ? (
+                  <CoverLetterGenerator />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+          </Routes>
         </Router>
       </div>
     </AuthContext.Provider>
