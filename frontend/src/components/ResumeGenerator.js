@@ -17,12 +17,14 @@ const ResumeGenerator = () => {
   return (
     <HomePageContainer>
       <Sidebar>
-        <SidebarOption to="/profile"><FaUser /> User Profile</SidebarOption>
-        <SidebarOption to="/resume"><FaFileAlt /> Resume Generator</SidebarOption>
-        <SidebarOption to="/coverletter"><FaEnvelope /> Cover Letter Generator</SidebarOption>
-        <div style={{marginTop: 'auto'}}>
+        <SidebarContent>
+          <div>
+            <SidebarOption to="/profile"><FaUser /> My Profile</SidebarOption>
+            <SidebarOption to="/resume"><FaFileAlt /> Resume Generator</SidebarOption>
+            <SidebarOption to="/coverletter"><FaEnvelope /> Cover Letter Creator</SidebarOption>
+          </div>
           <LogoutButton onClick={handleLogout}><FaPowerOff style={{marginRight: '5px'}}/>Logout</LogoutButton>
-        </div>
+        </SidebarContent>
       </Sidebar>
       <Content>
         <h1>Resume Generator</h1>
@@ -41,6 +43,13 @@ const Sidebar = styled.div`
   width: 200px;
   background-color: #DDDDDD;
   padding: 20px;
+`;
+
+const SidebarContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `;
 
 const SidebarOption = styled(Link)`
@@ -76,7 +85,6 @@ const LogoutButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  margin-top: auto;
 `;
 
 export default ResumeGenerator;

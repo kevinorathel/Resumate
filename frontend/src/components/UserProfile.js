@@ -13,8 +13,8 @@ const UserProfile = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [location, setLocation] = useState('');
-  const [profileImage, setProfileImage] = useState('https://via.placeholder.com/150');
+    const [location, setLocation] = useState('');
+  const [profileImage, setProfileImage] = useState('https://images.pexels.com/photos/30889155/pexels-photo-30889155/free-photo-of-close-up-profile-of-a-deer-in-thai-forest.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -31,11 +31,13 @@ const UserProfile = () => {
         setFirstName(data.firstName);
         setLastName(data.lastName);
         setEmail(data.email);
-        setPhoneNumber(data.phone); 
+        setPhoneNumber(data.phoneNumber);
 
         setLocation(data.location);
 
-        setProfileImage(data.profileImage || 'https://via.placeholder.com/150');
+        if (data.profileImage) {
+          setProfileImage(data.profileImage);
+        }
       })
       .catch(error => {
         console.error('Error fetching user profile:', error);
@@ -45,27 +47,37 @@ const UserProfile = () => {
   return (
     <HomePageContainer>
       <Sidebar>
-        <SidebarOption to="/profile"><FaUser /> User Profile</SidebarOption>
-        <SidebarOption to="/resume"><FaFileAlt /> Resume Generator</SidebarOption>
-        <SidebarOption to="/coverletter"><FaEnvelope /> Cover Letter Generator</SidebarOption>
-        <div style={{marginTop: 'auto'}}>
+        <SidebarContent>
+          <div>
+            <SidebarOption to="/profile"><FaUser /> My Profile</SidebarOption>
+            <SidebarOption to="/resume"><FaFileAlt /> Resume Generator</SidebarOption>
+            <SidebarOption to="/coverletter"><FaEnvelope /> Cover Letter Creator</SidebarOption>
+          </div>
           <LogoutButton onClick={handleLogout}><FaPowerOff style={{marginRight: '5px'}}/>Logout</LogoutButton>
-        </div>
+        </SidebarContent>
       </Sidebar>
       <Content>
-        <h1>User Profile</h1>
+        <h1>My Profile</h1>
         <ProfileCard>
           <ProfileImage src={profileImage} alt="Profile" />
-          <h3>Name: {firstName} {lastName}</h3>
-          <h3>Email: {email}</h3>
-          <h3>Phone Number: {phoneNumber}</h3>
-          <h3>Location: {location}</h3>
-
+          <StyledH3>Name: {firstName} {lastName}</StyledH3>
+          <StyledH3>Email: {email}</StyledH3>
+          <StyledH3>Phone Number: {phoneNumber}</StyledH3>
+          <StyledH3>Location: {location}</StyledH3>
         </ProfileCard>
       </Content>
     </HomePageContainer>
   );
 };
+
+const StyledH3 = styled.h3`
+  margin-bottom: 8px;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+`;
 
 const HomePageContainer = styled.div`
   display: flex;
@@ -76,6 +88,13 @@ const Sidebar = styled.div`
   width: 200px;
   background-color: #DDDDDD;
   padding: 20px;
+`;
+
+const SidebarContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `;
 
 const SidebarOption = styled(Link)`
@@ -111,7 +130,6 @@ const LogoutButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  margin-top: auto;
 `;
 
 const ProfileCard = styled.div`

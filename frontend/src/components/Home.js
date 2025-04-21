@@ -1,86 +1,9 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../App';
-import PillButton from './PillButton';
-import PillText from './PillText';
-import { FaUser, FaFileAlt, FaEnvelope, FaPowerOff } from 'react-icons/fa';
+import React from 'react';
 
 const Home = () => {
-  const navigate = useNavigate();
-  const { setIsAuthenticated, setUsername } = useContext(AuthContext);
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setUsername('');
-    navigate('/');
-  };
-
   return (
-    <HomePageContainer>
-      <Sidebar>
-        <SidebarOption to="/profile"><FaUser /> User Profile</SidebarOption>
-        <SidebarOption to="/resume"><FaFileAlt /> Resume Generator</SidebarOption>
-        <SidebarOption to="/coverletter"><FaEnvelope /> Cover Letter Generator</SidebarOption>
-      <LogoutButton onClick={handleLogout}><FaPowerOff style={{marginRight: '5px'}}/>Logout</LogoutButton>
-      </Sidebar>
-      <Content>
-        <h1>Dashboard</h1>
-        <PillText placeholder="Enter the job description here..." />
-        <br />
-        <div style={{ marginTop: '20px' }}>
-          <PillButton text="Generate Cover Letter" />
-        </div>
-      </Content>
-    </HomePageContainer>
+    <div></div>
   );
 };
-
-const HomePageContainer = styled.div`
-  display: flex;
-  height: 100vh;
-`;
-
-const Sidebar = styled.div`
-  width: 200px;
-  background-color: #DDDDDD;
-  padding: 20px;
-`;
-
-const SidebarOption = styled(Link)`
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  margin-bottom: 5px;
-  text-decoration: none;
-  color: #333;
-  border-radius: 5px;
-  transition: background-color 0.2s ease-in-out;
-
-  &:hover {
-    background-color: #e9ecef;
-  }
-
-  svg {
-    margin-right: 8px;
-  }
-`;
-
-const Content = styled.div`
-  flex: 1;
-  padding: 20px;
-`;
-
-const LogoutButton = styled.button`
-  display: block;
-  padding: 10px 15px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  margin-top: auto;
-`;
 
 export default Home;

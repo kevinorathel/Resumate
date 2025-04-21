@@ -3,6 +3,7 @@ C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\LoginDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\ResumeDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\SignupDTO.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\UserDataDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Models\EducationModel.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Models\ExperienceModel.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Models\ProjectModel.java
@@ -12,5 +13,6 @@ C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Resu
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Services\UserService.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Services\UserServiceImpl.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Util\AESUtil.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Util\CORSGlobalConfig.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Util\ResumeUtil.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Util\StopWordsUtil.java

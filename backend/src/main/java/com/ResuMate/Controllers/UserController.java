@@ -3,7 +3,9 @@ package com.ResuMate.Controllers;
 import com.ResuMate.DTO.JobDescriptionDTO;
 import com.ResuMate.DTO.LoginDTO;
 import com.ResuMate.DTO.SignupDTO;
+import com.ResuMate.DTO.UserDataDTO;
 import com.ResuMate.Models.UserModel;
+import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Services.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,64 +22,68 @@ import java.io.IOException;
 public class UserController {
 
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private UserService userService;
 
     @GetMapping("/TestAPI")
-    public String testApi() throws Exception {
+    public ResponseEntity<String> testApi() throws Exception {
 
-        return "All Good :)";
+        return new ResponseEntity<>("All Good :)", HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDTO loginDTO) throws Exception {
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) throws Exception {
 
-        return userService.userLogin(loginDTO);
+        return new ResponseEntity<>(userService.userLogin(loginDTO), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public Boolean signup(@RequestBody SignupDTO signupDTO){
+    public ResponseEntity<Boolean> signup(@RequestBody SignupDTO signupDTO){
 
-        return userService.userSignUp(signupDTO);
+        return new ResponseEntity<>(userService.userSignUp(signupDTO), HttpStatus.OK);
     }
 
     @PostMapping("/getContent")
-    public String getContent(@RequestBody String prompt) throws Exception {
+    public ResponseEntity<String> getContent(@RequestBody String prompt) throws Exception {
 
-        return userService.getAIGeneratedContent(prompt);
+        return new ResponseEntity<>(userService.getAIGeneratedContent(prompt), HttpStatus.OK);
     }
 
     @GetMapping("/userData")
-    public UserModel userData(@RequestParam("userId") Long userId) throws Exception {
+    public ResponseEntity<UserDataDTO> userData(@RequestParam("userId") Long userId) throws Exception {
 
-        return userService.getUserData(userId);
+        return new ResponseEntity<>(userService.getUserData(userId), HttpStatus.OK);
     }
 
     @PostMapping("/getCoverLetterContent")
-    public String userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
-        return userService.getCoverLetterContent(jobRequest);
+    public ResponseEntity<String> userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
+        return new ResponseEntity<>(userService.getCoverLetterContent(jobRequest), HttpStatus.OK);
     }
 
     @PostMapping("/generateCoverLetter")
     public ResponseEntity<byte[]> createCoverLetter(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
 
         byte[] pdfBytes = userService.createCoverLetter(jobRequest);
-        UserModel user = userService.getUserData(jobRequest.getUserId());
+        UserModel user = userRepository.getUserById(jobRequest.getUserId());
+
+        String fileName = user.getFirstName().replace(" ", "_") + "_"
+                + user.getLastName().replace(" ", "_") + "_Cover_Letter_"
+                + jobRequest.getCompanyName().replace(" ", "_") + ".pdf";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; " +
-                "filename="+user.getFirstName().replace(" ", "_")+"_"
-                +user.getLastName().replace(" ", "_")+"_" + "_CoverLetter_" +
-                jobRequest.getCompanyName().replace(" ", "_") + ".pdf");
-        headers.add("Content-Type", "application/pdf");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+        headers.add("Access-Control-Expose-Headers", "Content-Disposition");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-
     }
+
 
     @GetMapping("/generateResume")
     public ResponseEntity<byte[]> createResume(@RequestParam("userId") Long userId) throws IOException {
         byte[] pdfBytes = userService.createResume(userId);
-        UserModel user = userService.getUserData(userId);
+        UserModel user = userRepository.getUserById(userId);
         int currentYear = java.time.Year.now().getValue();
 
         HttpHeaders headers = new HttpHeaders();
