@@ -53,8 +53,8 @@ public class UserController {
     }
 
     @PostMapping("/getCoverLetterContent")
-    public String userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
-        return userService.getCoverLetterContent(jobRequest);
+    public ResponseEntity<String> userData(@RequestBody JobDescriptionDTO jobRequest) throws Exception {
+        return new ResponseEntity<>(userService.getCoverLetterContent(jobRequest), HttpStatus.OK);
     }
 
     @PostMapping("/generateCoverLetter")
@@ -63,16 +63,18 @@ public class UserController {
         byte[] pdfBytes = userService.createCoverLetter(jobRequest);
         UserModel user = userService.getUserData(jobRequest.getUserId());
 
+        String fileName = user.getFirstName().replace(" ", "_") + "_"
+                + user.getLastName().replace(" ", "_") + "_Cover_Letter_"
+                + jobRequest.getCompanyName().replace(" ", "_") + ".pdf";
+
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; " +
-                "filename="+user.getFirstName().replace(" ", "_")+"_"
-                +user.getLastName().replace(" ", "_")+"_" + "_CoverLetter_" +
-                jobRequest.getCompanyName().replace(" ", "_") + ".pdf");
-        headers.add("Content-Type", "application/pdf");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+        headers.add("Access-Control-Expose-Headers", "Content-Disposition");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-
     }
+
 
     @GetMapping("/generateResume")
     public ResponseEntity<byte[]> createResume(@RequestParam("userId") Long userId) throws IOException {

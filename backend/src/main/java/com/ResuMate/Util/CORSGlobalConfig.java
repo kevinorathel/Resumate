@@ -19,7 +19,8 @@ public class CORSGlobalConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(corsAllowedOrigins)
-                        .allowedMethods("*");
+                        .allowedMethods("*")
+                        .exposedHeaders("Content-Disposition");
             }
         };
     }

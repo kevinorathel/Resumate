@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = ({ placeholder }) => {
+const PillTextArea = ({ placeholder, onChange, name }) => {
   return (
     <StyledWrapper>
-      <input type="text" placeholder={placeholder} name="text" className="input" />
+      <textarea placeholder={placeholder} name={name} className="input" onChange={onChange} />
     </StyledWrapper>
   );
 }
@@ -19,13 +19,16 @@ const StyledWrapper = styled.div`
     outline-offset: 3px;
     padding: 10px 1rem;
     transition: 0.25s;
-    width: 500px;
-    height: 200px;
+    width: 700px;
+    height: 400px;
+    font-size: 16px;
   }
+  margin-top: 30px;
+  margin-bottom: 30px;
 
   .input:focus {
     outline-offset: 5px;
     background-color: #fff
   }`;
 
-export default Input;
+export default PillTextArea;

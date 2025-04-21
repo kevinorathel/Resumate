@@ -1,23 +1,19 @@
 package com.ResuMate.Util;
 
-import com.ResuMate.DTO.JobDescriptionDTO;
 import com.ResuMate.Models.EducationModel;
 import com.ResuMate.Models.ExperienceModel;
 import com.ResuMate.Models.ProjectModel;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.itextpdf.io.font.constants.StandardFonts;
-import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.action.PdfAction;
-import com.itextpdf.kernel.pdf.canvas.draw.ILineDrawer;
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.TextAlignment;
 import org.json.JSONArray;
@@ -64,9 +60,9 @@ public class ResumeUtil {
                     + " where i did the following " + project.getProjectDescription());
         }
 
-        String prompt = "My name is " + user.getFirstName() + " "
+        String prompt = "My name is " + user.getFirstName()
                 + (user.getMiddleName() != null && !user.getMiddleName().isEmpty()
-                        ? user.getMiddleName() : "")
+                        ? " " + user.getMiddleName() : " ")
                 + user.getLastName() +
                 ", my email id is " + user.getEmail() +", my phone number is " + user.getPhone() + " and i live in "
                 + user.getLocation() + ". I have the following degrees: " + userDegrees + " and i have experience doing the following: " +

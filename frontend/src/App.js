@@ -55,7 +55,7 @@ function App() {
             path="/home"
             element={
               isAuthenticated ? (
-                <Home username={username} onLogout={handleLogout} />
+                <CoverLetterGenerator username={username} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/" />
               )
@@ -65,7 +65,7 @@ function App() {
             path="/dashboard"
             element={
               isAuthenticated ? (
-                <Home username={username} onLogout={handleLogout} />
+                <CoverLetterGenerator username={username} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/" />
               )

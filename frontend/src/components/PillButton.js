@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({ text }) => {
+const Button = ({ text, onClick }) => {
   return (
     <StyledWrapper>
-      <button className="button">
+      <button className="button" onClick={onClick}>
         <div>
           <div>
             <div>{text}</div>
@@ -98,9 +98,11 @@ const StyledWrapper = styled.div`
 
       animation: star-rotate 4s linear infinite;
       opacity: 0.1;
+      background: white;
     }
 
     &:hover::before {
+      background: grey;
       opacity: 1;
     }
 
