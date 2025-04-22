@@ -73,3 +73,9 @@
   padding: 50px 0;
   width: 100%;
 }
+
+.knewave-regular {
+  font-family: "Knewave", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}

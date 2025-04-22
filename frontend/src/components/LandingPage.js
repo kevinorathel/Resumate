@@ -12,8 +12,8 @@ function LandingPage() {
   return (
     <div>
       <div className="landing-page">
-        <h1>Welcome to Resumate</h1>
-        <p>Create your professional resume and cover letter with ease.</p>
+        <h1>Welcome to <span class="knewave-regular">Resumate</span></h1>
+        <p>Your AI sidekick for resume & cover letter magic.</p>
         <button className="get-started-button" onClick={handleGetStarted}>
           Get Started
         </button>
