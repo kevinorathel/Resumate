@@ -3,8 +3,9 @@
 
 Resumate is an application that helps people write great ATS proof resumes easily. Once the user signs up and logins in, they will be prompted to give some information about themselves such as their education, experience etc.. and resumate will generate a resume for you. 
 
-#### Check it out here!
+### Check it out here!
 
+It is still a work in progress so some things may not work as expected 
 (https://resumate-jade.vercel.app/)
 
 ## Screenshots
