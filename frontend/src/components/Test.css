@@ -1,0 +1,101 @@
+body{
+    background-color: #FFFFEC;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Navigation Bar */
+
+.navbar{
+    padding: 0 0 4.5rem; 
+}
+
+#branding{
+    font-family: "Cherry Bomb One", system-ui;
+    font-size: 4rem;
+    font-weight: bold; 
+    -webkit-text-stroke: 0.1px black; 
+}
+
+.logo{
+    width: 4rem; 
+    margin-bottom: 28px;
+}
+
+.nav-item{
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 5 rem;
+}
+
+.nav-item:hover{
+    border-radius: 10px;
+    background-color: #FFCA03;
+}
+
+.nav-link{
+    font-size: 1rem;
+    color: #4F4A45;
+}
+
+
+/* Header Section */
+
+#header{
+    background-color: #FDDA16;
+    color: #4F4A45;
+    padding: 3% 15% 5%;
+    max-height: 1000px;
+}
+
+.heading{
+    margin-top: 3%;
+}
+
+.download-button{
+    text-align: center;
+    margin: 10%;
+}
+
+.ind-download-btn{
+    font-size: 30px;
+    margin: 3%;
+    padding: 3% 9%;
+    margin-right: 30px;
+}
+
+.lady-texting{
+    border-radius: 7%;
+    margin-top: 3%;
+    width: 100%;
+}
+
+.intial-caption{
+    text-align: center;
+}
+
+/* Features Section */
+
+#features{
+    text-align: center;
+    margin: 5%;
+}
+
+.icons{
+    color: black;
+    font-size: 7rem;
+    margin-bottom: 5rem;
+}
+
+/* Footer */
+
+#footer{
+    margin-top: 10%;
+    text-align: center;
+}
+
+.copyright{
+    color: #395B64;
+    font-size: medium;
+    font-weight: lighter;
+    margin-top: 1rem;
+}

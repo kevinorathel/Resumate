@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,11 @@ const Login = ({ onLogin }) => {
   const [confirmSignupPassword, setConfirmSignupPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/images/login4.jpg';
+  }, []);
 
 
   const handleLoginSubmit = (e) => {
@@ -414,6 +419,7 @@ const ImageSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 1;
   
   .image-container {
     text-align: center;

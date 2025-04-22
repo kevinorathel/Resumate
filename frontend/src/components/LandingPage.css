@@ -37,10 +37,11 @@
 
 .features {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin-top: 50px;
+  margin-right: 10px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 50px;
 }
 
 .feature {
@@ -52,24 +53,24 @@
 }
 
 .feature i {
-  font-size: 3em;
+  font-size: 4em;
   margin-bottom: 15px;
-  color: #FFB22C;
+  color: #4E1F00;
 }
 
 .feature h3 {
-  font-size: 1.5em;
+  font-size: 1.7em;
   margin-bottom: 10px;
   color: #000000;
 }
 
 .feature p {
-  font-size: 1.1em;
+  font-size: 1.2em;
   color: #854836;
 }
 
 .features-section {
-  background-color: #F7F7F7;
+  background-color: #D6CFB4;
   padding: 50px 0;
   width: 100%;
 }
