@@ -13,9 +13,23 @@ Resumate is an application that helps people write great ATS proof resumes easil
 
 To run this project, you will need to add the following environment variables to your .env file
 
+### Frontend
+
+`REACT_APP_API_BASE_URL`
+
+### Backend
+
+`DB_URL`
+
+`DB_PWD`
+
+`DB_USERNAME`
+
 `ENCRYPTION_KEY`
 
 `GEMINI_API_KEY`
+
+`CORSALLOWEDORIGINS`
 
 
 
