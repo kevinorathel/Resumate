@@ -5,7 +5,7 @@ Resumate is an application that helps people write great ATS proof resumes easil
 
 ## Screenshots
 
-![App Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/kevinorathel/Resumate/blob/main/misc/Resumate-home.png))
+![App Screenshot]((https://raw.githubusercontent.com/kevinorathel/Resumate/refs/heads/main/misc/Resumate-home.png))
 
 
 
