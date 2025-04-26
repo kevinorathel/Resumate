@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../App';
 import PillButton from './PillButton';
 import PillTextArea from './PillText';
 import PillTextInput from './PillTextInput';
+import Loader from './Loader';
 import { FaUser, FaFileAlt, FaEnvelope, FaPowerOff } from 'react-icons/fa';
 import { saveAs } from 'file-saver';
 const URL = process.env.REACT_APP_API_BASE_URL;
@@ -15,6 +16,27 @@ const CoverLetterGenerator = () => {
   const [jobDescription, setJobDescription] = React.useState('');
   const [companyName, setCompanyName] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("Writing your cover letter...");
+  const messages = [
+    "📝 Writing your cover letter...",
+    "✍️ Crafting the perfect introduction...",
+    "✨ Summoning the perfect words...",
+    "🤓 Polishing every word to make you shine...",
+    "🎉 Hold tight — your awesome is almost ready!"
+  ];
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setMessageIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % messages.length;
+        setLoadingMessage(messages[newIndex]);
+        return newIndex;
+      });
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [messages]);
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -24,7 +46,14 @@ const CoverLetterGenerator = () => {
 
   const handleGenerateCoverLetter = (e) => {
     e.preventDefault();
+    if (!companyName || !jobDescription) {
+      alert('Please fill in both the company name and job description.');
+      return;
+    }
+
     setIsLoading(true);
+    setCompanyName('');
+    setJobDescription('');
 
     fetch(`${URL}/user/generateCoverLetter`, {
       method: 'POST',
@@ -38,9 +67,6 @@ const CoverLetterGenerator = () => {
       }),
     })
       .then(response => {
-        for (let pair of response.headers.entries()) {
-          console.log(pair[0] + ': ' + pair[1]);
-        }
 
         const contentDisposition = response.headers.get('Content-Disposition');
         let filename = 'coverletter.pdf'; 
@@ -52,7 +78,6 @@ const CoverLetterGenerator = () => {
           }
         }
 
-        console.log('Final Filename:', filename);
         return response.blob().then(blob => ({ blob, filename }));
       })
       .then(({ blob, filename }) => {
@@ -80,11 +105,21 @@ const CoverLetterGenerator = () => {
       </Sidebar>
       <Content>
         <Card>
-          <h2>Cover Letter Generator</h2>
-          <PillTextInput placeholder="Enter the company name here..." name="companyName" onChange={(e) => setCompanyName(e.target.value)} />
-          <PillTextArea placeholder="Enter the job description here..." name="jobDescription" onChange={(e) => setJobDescription(e.target.value)} style={{ marginBottom: '30px' }} />
-          <GenerateButton text="Generate Cover Letter" onClick={handleGenerateCoverLetter} disabled={isLoading} />
-          {isLoading && <p>Loading...</p>}
+          {isLoading ? (
+            <>
+              <h2>{loadingMessage}</h2>
+              <Loader />
+            </>
+          ) : (
+            <h2>Cover Letter Generator</h2>
+          )}
+          {!isLoading ? (
+            <>
+              <PillTextInput placeholder="Enter the company name here..." name="companyName" onChange={(e) => setCompanyName(e.target.value)} />
+              <PillTextArea placeholder="Enter the job description here..." name="jobDescription" onChange={(e) => setJobDescription(e.target.value)} style={{ marginBottom: '30px' }} />
+              <GenerateButton text="Generate Cover Letter" onClick={handleGenerateCoverLetter} disabled={isLoading} />
+            </>
+          ) : null}
         </Card>
       </Content>
     </HomePageContainer>
@@ -98,9 +133,14 @@ const Card = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 900px;
+  width: 800px;
+  height: 800px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Ensure the card has a minimum height */
 `;
 
 const HomePageContainer = styled.div`
