@@ -6,7 +6,7 @@ Resumate is an application that helps people write great ATS proof resumes easil
 ### Check it out here!
 
 It is still a work in progress so some things may not work as expected 
-(https://resumate-jade.vercel.app/)
+(https://resumate-o35ykx6e5-kevinorathels-projects.vercel.app/)
 
 ## Screenshots
 
