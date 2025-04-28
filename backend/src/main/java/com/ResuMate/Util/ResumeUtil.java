@@ -62,7 +62,7 @@ public class ResumeUtil {
 
         String prompt = "My name is " + user.getFirstName()
                 + (user.getMiddleName() != null && !user.getMiddleName().isEmpty()
-                        ? " " + user.getMiddleName() : " ")
+                        ? " " + user.getMiddleName() + " ": " ")
                 + user.getLastName() +
                 ", my email id is " + user.getEmail() +", my phone number is " + user.getPhone() + " and i live in "
                 + user.getLocation() + ". I have the following degrees: " + userDegrees + " and i have experience doing the following: " +
@@ -259,7 +259,7 @@ public class ResumeUtil {
             Map<String, Integer> jobTF = getTermFrequencies(jobDescription);
 
             double similarity = cosineSimilarity(profileTF, jobTF);
-            System.out.println("Similarity Score: " + similarity);
+            System.out.println("Similarity Score: " + similarity * 1000);
 
             document.add(new Paragraph(content)
                     .setFont(font)

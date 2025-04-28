@@ -38,7 +38,6 @@ function App() {
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, userId, username, setUsername }}>
       <div className="App">
-        <Background />
         <Router>
           <Routes>
             <Route
@@ -77,7 +76,11 @@ function App() {
             <Route
               path="/resume"
               element={
-                isAuthenticated ? <ResumeGenerator /> : <Navigate to="/" />
+                isAuthenticated ? (
+                  <ResumeGenerator /> 
+                ) : (
+                  <Navigate to="/" />
+                )
               }
             />
             <Route

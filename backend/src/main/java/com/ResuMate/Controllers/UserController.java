@@ -1,9 +1,6 @@
 package com.ResuMate.Controllers;
 
-import com.ResuMate.DTO.JobDescriptionDTO;
-import com.ResuMate.DTO.LoginDTO;
-import com.ResuMate.DTO.SignupDTO;
-import com.ResuMate.DTO.UserDataDTO;
+import com.ResuMate.DTO.*;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Services.UserService;
@@ -30,6 +27,12 @@ public class UserController {
     public ResponseEntity<String> testApi() throws Exception {
 
         return new ResponseEntity<>("All Good :)", HttpStatus.OK);
+    }
+
+    @GetMapping("/getResumeData")
+    public ResponseEntity<ResumeDTO> getResumeData(@RequestParam("userId") Long userId) throws Exception {
+
+        return new ResponseEntity<>(userService.getResumeData(userId), HttpStatus.OK);
     }
 
     @PostMapping("/login")
@@ -78,7 +81,6 @@ public class UserController {
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
-
 
     @GetMapping("/generateResume")
     public ResponseEntity<byte[]> createResume(@RequestParam("userId") Long userId) throws IOException {

@@ -1,43 +1,58 @@
 package com.ResuMate.DTO;
 
+import com.ResuMate.Models.EducationModel;
+import com.ResuMate.Models.ExperienceModel;
+import com.ResuMate.Models.ProjectModel;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
+
 public class ResumeDTO {
-    
-    private String name;
-    private String email;
-    private String phone;
-    private String summary;
 
-    public String getName() {
-        return name;
+    private Long userId;
+
+    @JsonManagedReference
+    private List<ExperienceModel> experiences;
+
+    @JsonManagedReference
+    private List<EducationModel> education;
+
+    @JsonManagedReference
+    private List<ProjectModel> projects;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getEmail() {
-        return email;
+    public List<ExperienceModel> getExperiences() {
+        return experiences;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setExperiences(List<ExperienceModel> experiences) {
+        this.experiences = experiences;
     }
 
-    public String getSummary() {
-        return summary;
+    public List<EducationModel> getEducation() {
+        return education;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setEducation(List<EducationModel> education) {
+        this.education = education;
     }
 
-    public String getPhone() {
-        return phone;
+    public List<ProjectModel> getProjects() {
+        return projects;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setProjects(List<ProjectModel> projects) {
+        this.projects = projects;
     }
-
-
 }

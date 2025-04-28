@@ -1,16 +1,14 @@
 package com.ResuMate.Services;
 
 
-import com.ResuMate.DTO.JobDescriptionDTO;
-import com.ResuMate.DTO.LoginDTO;
-import com.ResuMate.DTO.SignupDTO;
-import com.ResuMate.DTO.UserDataDTO;
+import com.ResuMate.DTO.*;
 import com.ResuMate.Models.UserModel;
 import org.json.JSONObject;
 
 public interface UserService {
 
     public UserDataDTO getUserData(Long userId);
+    public ResumeDTO getResumeData(Long userId);
     public String userLogin(LoginDTO loginDto);
     public Boolean userSignUp(SignupDTO signupDTO);
     public String getAIGeneratedContent(String prompt) throws Exception;
