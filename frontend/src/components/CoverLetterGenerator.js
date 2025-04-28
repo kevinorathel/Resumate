@@ -22,7 +22,7 @@ const CoverLetterGenerator = () => {
     "✍️ Crafting the perfect introduction...",
     "✨ Summoning the perfect words...",
     "🤓 Polishing every word to make you shine...",
-    "🎉 Hold tight — your awesome is almost ready!"
+    "🎉 Hold tight — your awesome cover letter is almost ready!"
   ];
   const [messageIndex, setMessageIndex] = useState(0);
 
@@ -107,8 +107,8 @@ const CoverLetterGenerator = () => {
         <Card>
           {isLoading ? (
             <>
-              <h2>{loadingMessage}</h2>
               <Loader />
+              <h2>{loadingMessage}</h2>
             </>
           ) : (
             <h2>Cover Letter Generator</h2>

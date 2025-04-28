@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HourGlassLoader from './HourGlassLoader';
+import Background from '../Background';
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,14 +36,12 @@ const Login = ({ onLogin }) => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!email.trim() || !password.trim()) {
       setError('Email and password are required');
       return;
     }
 
     setLoading(true);
-    // API call
     fetch(`${URL}/user/login`, {
       method: 'POST',
       headers: {
@@ -84,9 +83,7 @@ const Login = ({ onLogin }) => {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     
-    // Basic validation
     if (!firstName.trim() 
-      // || !middleName.trim() || !lastName.trim() 
     || !signupEmail.trim() || !signupPassword.trim() || !confirmSignupPassword.trim()) {
       setError('All fields are required');
       alert('All fields are required');
@@ -100,7 +97,6 @@ const Login = ({ onLogin }) => {
     }
 
     setSignupLoading(true);
-    // API call
     fetch(`${URL}/user/signup`, {
       method: 'POST',
       headers: {
@@ -132,6 +128,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <PageContainer>
+      <Background />
       <LoginSection>
         <div className="wrapper">
           <div className="card-switch">
