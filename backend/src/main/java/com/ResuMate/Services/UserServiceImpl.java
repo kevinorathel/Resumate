@@ -1,16 +1,19 @@
 package com.ResuMate.Services;
 
-import com.ResuMate.DTO.JobDescriptionDTO;
-import com.ResuMate.DTO.LoginDTO;
-import com.ResuMate.DTO.SignupDTO;
-import com.ResuMate.DTO.UserDataDTO;
+import com.ResuMate.DTO.*;
+import com.ResuMate.Models.EducationModel;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Util.AESUtil;
 import com.ResuMate.Util.ResumeUtil;
+import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.Paragraph;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.ZoneId;
 
 
 @Service
@@ -41,6 +44,30 @@ public class UserServiceImpl implements UserService{
 
         return userDTO;
 
+    }
+
+    public ResumeDTO getResumeData(Long userId){
+
+        ResumeDTO resumeData = new ResumeDTO();
+
+        UserModel user = userRepository.getUserById(userId);
+        if(user != null){
+            resumeData.setUserId(userId);
+            if( !user.getEducation().isEmpty() ){
+
+                resumeData.setEducation(user.getEducation());
+            }
+            if( !user.getExperiences().isEmpty()){
+
+                resumeData.setExperiences(user.getExperiences());
+            }
+            if( !user.getProjects().isEmpty()){
+
+                resumeData.setProjects(user.getProjects());
+            }
+        }
+
+        return resumeData;
     }
 
     public Boolean userSignUp(SignupDTO signupDTO){
