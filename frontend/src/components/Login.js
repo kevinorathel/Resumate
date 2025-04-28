@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import HourGlassLoader from './HourGlassLoader';
+import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const URL = process.env.REACT_APP_API_BASE_URL;
+
+const LoaderContainer = styled.div`
+  width: 300px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -14,6 +23,8 @@ const Login = ({ onLogin }) => {
   const [confirmSignupPassword, setConfirmSignupPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [signupLoading, setSignupLoading] = useState(false);
 
   useEffect(() => {
     const img = new Image();
@@ -30,6 +41,7 @@ const Login = ({ onLogin }) => {
       return;
     }
 
+    setLoading(true);
     // API call
     fetch(`${URL}/user/login`, {
       method: 'POST',
@@ -43,6 +55,7 @@ const Login = ({ onLogin }) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        setLoading(false);
         if (data.status === true) {
           setError('');
           // Call the onLogin prop to notify the parent component
@@ -56,9 +69,16 @@ const Login = ({ onLogin }) => {
         }
       })
       .catch((error) => {
+        setLoading(false);
         setError('An error occurred');
         alert('An error occurred');
       });
+
+    setFirstName('');
+    setLastName('');
+    setSignupEmail('');
+    setSignupPassword('');
+    setConfirmSignupPassword('');
   };
 
   const handleSignupSubmit = (e) => {
@@ -78,12 +98,8 @@ const Login = ({ onLogin }) => {
       alert('Passwords do not match');
       return;
     }
-    
-    // Reset the form
-    setFirstName('');
-    setLastName('');
-    setSignupEmail('');
-    setSignupPassword('');
+
+    setSignupLoading(true);
     // API call
     fetch(`${URL}/user/signup`, {
       method: 'POST',
@@ -99,22 +115,19 @@ const Login = ({ onLogin }) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        setSignupLoading(false);
         alert('Signup successful! Please log in.');
+        setFirstName('');
+        setLastName('');
+        setSignupEmail('');
+        setSignupPassword('');
+        setConfirmSignupPassword('');
       })
       .catch((error) => {
+        setSignupLoading(false);
         setError('An error occurred');
         alert('An error occurred');
       });
-
-    setFirstName('');
-    setLastName('');
-    setSignupEmail('');
-    setSignupPassword('');
-    setConfirmSignupPassword('');
-    
-    // Switch back to login
-    const toggle = document.querySelector('.toggle');
-    if (toggle) toggle.checked = false;
   };
 
   return (
@@ -126,81 +139,98 @@ const Login = ({ onLogin }) => {
               <input type="checkbox" className="toggle" />
               <span className="slider" />
               <span className="card-side" />
+              
               <div className="flip-card__inner">
                 <div className="flip-card__front">
                   <div className="title">Log in</div>
                   <form className="flip-card__form" onSubmit={handleLoginSubmit}>
-                    <input 
-                      className="flip-card__input" 
-                      name="email" 
-                      placeholder="Email" 
-                      type="email" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input 
-                      className="flip-card__input" 
-                      name="password" 
-                      placeholder="Password" 
-                      type="password" 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button className="flip-card__btn">Let's go!</button>
+                    {loading ? (
+                      <LoaderContainer>
+                        <HourGlassLoader />
+                      </LoaderContainer>
+                    ) : (
+                      <>
+                        <input
+                          className="flip-card__input"
+                          name="email"
+                          placeholder="Email"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input
+                          className="flip-card__input"
+                          name="password"
+                          placeholder="Password"
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button className="flip-card__btn">Let's go!</button>
+                      </>
+                    )}
                   </form>
                 </div>
-                <div className="flip-card__back">
-                  <div className="title">Sign up</div>
-                  <form className="flip-card__form" onSubmit={handleSignupSubmit}>
-                    <input 
-                      className="flip-card__input" 
-                      placeholder="First Name" 
-                      type="text" 
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <input 
-                      className="flip-card__input" 
-                      placeholder="Last Name" 
-                      type="text" 
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <input 
-                      className="flip-card__input" 
-                      name="email" 
-                      placeholder="Email" 
-                      type="email" 
-                      value={signupEmail}
-                      onChange={(e) => setSignupEmail(e.target.value)}
-                    />
-                    <input 
-                      className="flip-card__input" 
-                      name="password" 
-                      placeholder="Password" 
-                      type="password" 
-                      value={signupPassword}
-                      onChange={(e) => setSignupPassword(e.target.value)}
-                    />
-                    <input 
-                      className="flip-card__input" 
-                      name="confirmPassword" 
-                      placeholder="Confirm Password" 
-                      type="password"
-                      value={confirmSignupPassword}
-                      onChange={(e) => setConfirmSignupPassword(e.target.value)}
-                    />
-                    <button className="flip-card__btn">Confirm!</button>
-                  </form>
-                </div>
+                 <div className="flip-card__back">
+                    <div className="title">Sign up</div>
+                    <form className="flip-card__form" onSubmit={handleSignupSubmit}>
+                      {signupLoading ? (
+                        <LoaderContainer>
+                          <HourGlassLoader />
+                        </LoaderContainer>
+                      ) : (
+                        <>
+                          <input
+                            className="flip-card__input"
+                            placeholder="First Name"
+                            type="text"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                          />
+                          <input
+                            className="flip-card__input"
+                            placeholder="Last Name"
+                            type="text"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                          />
+                          <input
+                            className="flip-card__input"
+                            name="email"
+                            placeholder="Email"
+                            type="email"
+                            value={signupEmail}
+                            onChange={(e) => setSignupEmail(e.target.value)}
+                          />
+                          <input
+                            className="flip-card__input"
+                            name="password"
+                            placeholder="Password"
+                            type="password"
+                            value={signupPassword}
+                            onChange={(e) => setSignupPassword(e.target.value)}
+                          />
+                          <input
+                            className="flip-card__input"
+                            name="confirmPassword"
+                            placeholder="Confirm Password"
+                            type="password"
+                            value={confirmSignupPassword}
+                            onChange={(e) => setConfirmSignupPassword(e.target.value)}
+                          />
+                          <button className="flip-card__btn">Confirm!</button>
+                        </>
+                      )}
+                    </form>
+                  </div>
               </div>
             </label>
             <span style={{ marginLeft: '5px', verticalAlign: 'middle' }}>Login</span>
-          </div>   
+          </div>
         </div>
       </LoginSection>
       <ImageSection />
-      </PageContainer>
+    </PageContainer>
   );
 }
 
@@ -329,7 +359,7 @@ const LoginSection = styled.div`
     transform: rotateY(180deg);
   }
 
-  .toggle:checked ~ .flip-card__front {
+  .flip-card__front {
     box-shadow: none;
   }
 
