@@ -13,13 +13,34 @@ const ResumeGenerator = () => {
   const { setIsAuthenticated, setUsername, userId } = useContext(AuthContext);
   const [resumeData, setResumeData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("📝 Writing your resume...");
+    const messages = [
+      "📝 Writing your resume...",
+      "✍️ Crafting the perfect summary...",
+      "✨ Summoning the perfect words...",
+      "🤓 Polishing every word to make you shine...",
+      "🎉 Hold tight — your awesome resume is almost ready!"
+    ];
+    const [messageIndex, setMessageIndex] = useState(0);
+  
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        setMessageIndex((prevIndex) => {
+          const newIndex = (prevIndex + 1) % messages.length;
+          setLoadingMessage(messages[newIndex]);
+          return newIndex;
+        });
+      }, 3000);
+  
+      return () => clearInterval(intervalId);
+    }, [messages]);
 
   useEffect(() => {
-    fetch(`${URL}/user/getResumeData?userId=1`)
+    fetch(`${URL}/user/getResumeData?userId=${userId}`)
       .then(response => response.json())
       .then(data => setResumeData(data))
       .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  }, [userId]);
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -58,33 +79,43 @@ const ResumeGenerator = () => {
       <Header>Resumate</Header>
       <ResumeCard>
         {isLoading ? (
-          <Loader className="center-loader" />
+          <>
+            <Loader className="center-loader" />
+            <h2>{loadingMessage}</h2>
+          </>
+          
         ) : (
           <>
-            <h1 className='comic-neue-bold'>Resume Generator</h1>
+            <p className='comic-neue-bold'>Resume Generator</p>
             <StyledDiv>
-              <h2 label className='comic-neue-bold'>Education: </h2>
-              {resumeData && resumeData.education && (
-                <div>
-                  {resumeData.education.map(edu => (
-                    <div key={edu.id}>
-                      <label className='comic-neue-regular'>{edu.institution}, {edu.degree}</label>
-                      <br></br>
-                    </div>
-                  ))}
-                </div>
+            <hr style={{ borderTop: '2px solid #ccc', margin: '20px 0' }} />
+
+              <div>
+                <span className='content-header'>Summary: </span>
+              </div>
+              {resumeData && resumeData.summary &&(
+              <div className='content-div'>
+                <h3 className='content'>{resumeData.summary}</h3>
+              </div>
+                
               )}
-              <br></br>
-              <h2 label className='comic-neue-bold'>Experience: </h2>
+
+              <hr style={{ borderTop: '2px solid #ccc', margin: '20px 0' }} />
+
+              <div>
+                <h2 className='comic-neue-bold-800 content-header'>Work Experience: </h2>
+              </div>
               {resumeData && resumeData.experiences && (
                 <div>
                   {resumeData.experiences.map(exp => (
-                    <div key={exp.id}>
-                      <h3 label className='comic-neue-bold'>{exp.role} at {exp.company} <br></br></h3>
-                      <span>{new Date(exp.startDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span> - 
-                      <span>{new Date(exp.endDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span>
+                    <div className='content-div content' key={exp.id}>
+                      
+                      <h3  className='comic-neue'>{exp.company}<br></br></h3>
+                      <h4>{exp.role}</h4>
+                      <span className='year' >{new Date(exp.startDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })} - </span>
+                      <span className='year' >{new Date(exp.endDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span>
                       <br></br><br></br>
-                      {exp.description
+                      {exp.description 
                         .split('• ')
                         .filter(point => point.trim() !== '')
                         .map((point, index) => (
@@ -93,18 +124,33 @@ const ResumeGenerator = () => {
                             <label>• </label>{point}
                           </React.Fragment>
                       ))}
+                      <br></br>
                     </div>
                   ))}
                 </div>
               )}
-              <br></br>
-              <h2 label className='comic-neue-bold'>Projects: </h2>
-              {resumeData && resumeData.projects && (
+              <hr style={{ borderTop: '2px solid #ccc', margin: '20px 0' }} />
+              <h2  className='comic-neue-bold-800 content-header'>Education: </h2>
+              {resumeData && resumeData.education && (
                 <div>
+                  {resumeData.education.map(edu => (
+                    <div className='content-div content' key={edu.id}>
+                      <h3>{edu.institution}</h3>
+                      <h4>{edu.degree}</h4>
+                      <span className='year' >{new Date(edu.year).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span>
+                      <br></br><br></br>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <hr style={{ borderTop: '2px solid #ccc', margin: '20px 0' }} />
+              <h2 label className='comic-neue-bold-800 content-header'>Projects: </h2>
+              {resumeData && resumeData.projects && (
+                <div className='content-div content'>
                   {resumeData.projects.map(proj => (
-                    <div key={proj.id}>
-                      <h3 label className='comic-neue-bold'>{proj.projectName}<br></br></h3>
-                      <span>{new Date(proj.projectDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span>
+                    <div className='content-div' key={proj.id}>
+                      <h3 label className='comic-neue'>{proj.projectName}<br></br></h3>
+                      <span className='year'>{new Date(proj.projectDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span>
                       <br></br><br></br>
                       {proj.projectDescription
                         .split('• ')
@@ -119,6 +165,7 @@ const ResumeGenerator = () => {
                   ))}
                 </div>
               )}
+              <hr style={{ borderTop: '2px solid #ccc', margin: '20px 0' }} />
             </StyledDiv>
             <PillButton text="Generate Resume" onClick={handleGenerateResume} />
           </>
@@ -160,8 +207,24 @@ const ResumeCard = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  position: relative;  
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   position: relative;
+  min-height: 600px;
+
+
+
+
+  p{
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  .year{
+    opacity: 0.7;
+  }
 
   .center-loader {
     position: absolute;
@@ -181,6 +244,21 @@ const ResumeCard = styled.div`
     font-weight: 700;
     font-style: normal;
   }
+
+  .content-div{
+    margin-left: 20px
+  }
+
+  .content-header{
+    font-size: 1.75em;
+    font-weight: bold;
+  }
+
+  .content {
+    font-size: 1.15em;
+    font-weight: normal;
+  }
+
 `;
 
 const StyledDiv = styled.div`
