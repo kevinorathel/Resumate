@@ -15,6 +15,8 @@ public class ResumeDTO {
 
     private Long userId;
 
+    private String summary;
+
     @JsonManagedReference
     private List<ExperienceModel> experiences;
 
@@ -30,6 +32,14 @@ public class ResumeDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public List<ExperienceModel> getExperiences() {

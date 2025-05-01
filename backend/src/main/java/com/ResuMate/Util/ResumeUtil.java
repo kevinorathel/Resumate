@@ -125,23 +125,6 @@ public class ResumeUtil {
         document.add(new Paragraph(user.getSummary()).setFont(timesRoman));
         document.add(new Paragraph().setFixedLeading(10));
 
-        if( !user.getEducation().isEmpty() ){
-            document.add(getLineSeparator());
-            document.add(new Paragraph("\nEDUCATION:").setFont(timesBold).setFontSize(13));
-            List educationList = new List();
-            for (EducationModel edu : user.getEducation()) {
-                educationList.add(new ListItem( edu.degree + " at " + edu.getInstitution() +
-                        " (" + edu.getYear().toInstant()
-                        .atZone(ZoneId.systemDefault())
-                        .toLocalDate()
-                        .getYear() + ")"));
-            }
-            document.add(educationList);
-            document.add(new Paragraph().setFixedLeading(10));
-        }
-
-        document.add(new Paragraph().setFixedLeading(10));
-
         if( !user.getExperiences().isEmpty() ) {
             document.add(getLineSeparator());
             document.add(new Paragraph("\nEXPERIENCE:").setFont(timesBold).setFontSize(13));
@@ -172,6 +155,23 @@ public class ResumeUtil {
                 document.add(new ListItem(exp.getDescription()));
                 document.add(new Paragraph().setFixedLeading(10));
             }
+        }
+
+        document.add(new Paragraph().setFixedLeading(10));
+
+        if( !user.getEducation().isEmpty() ){
+            document.add(getLineSeparator());
+            document.add(new Paragraph("\nEDUCATION:").setFont(timesBold).setFontSize(13));
+            List educationList = new List();
+            for (EducationModel edu : user.getEducation()) {
+                educationList.add(new ListItem( edu.degree + " at " + edu.getInstitution() +
+                        " (" + edu.getYear().toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate()
+                        .getYear() + ")"));
+            }
+            document.add(educationList);
+            document.add(new Paragraph().setFixedLeading(10));
         }
 
         document.add(new Paragraph().setFixedLeading(10));

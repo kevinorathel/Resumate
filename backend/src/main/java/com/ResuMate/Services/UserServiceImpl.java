@@ -53,6 +53,10 @@ public class UserServiceImpl implements UserService{
         UserModel user = userRepository.getUserById(userId);
         if(user != null){
             resumeData.setUserId(userId);
+            if( !user.getSummary().isEmpty()){
+
+                resumeData.setSummary(user.getSummary());
+            }
             if( !user.getEducation().isEmpty() ){
 
                 resumeData.setEducation(user.getEducation());
@@ -96,6 +100,7 @@ public class UserServiceImpl implements UserService{
         if(user != null){
 
             String realPassword = AESUtil.decryptPassword(user.getPassword());
+            System.out.println(realPassword);
             if(loginDto.getPassword().equals(realPassword)){
                 response.put("status", true);
                 response.put("userId", user.getId());

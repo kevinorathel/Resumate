@@ -3,13 +3,14 @@ import React from 'react';
  
  const PillTextInput = ({ placeholder, onChange, name }) => {
   return (
-  <StyledWrapper>
-  <input type="text" placeholder={placeholder} name={name} className="input" onChange={onChange} />
-  </StyledWrapper>
+    <StyledWrapper>
+        <input type="text" placeholder={placeholder} name={name} className="input" onChange={onChange} />
+    </StyledWrapper>
   );
  }
  
  const StyledWrapper = styled.div`
+  margin-top: 30px;
   margin-bottom: 20px;
   .input {
   border-radius: 10px;

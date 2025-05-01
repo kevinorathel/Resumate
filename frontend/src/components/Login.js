@@ -242,7 +242,6 @@ const LoginSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  // background-color: #ffffff;
 
   .wrapper {
     --input-focus: #2d8cf0;
