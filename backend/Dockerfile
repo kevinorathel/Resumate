@@ -1,13 +1,6 @@
-FROM eclipse-temurin:17-jdk
-
-# Set the working directory in the container
+FROM eclipse-temurin:17-jdk-alpine as base
 WORKDIR /app
-
-# Copy the built JAR file into the container
-COPY target/*.jar app.jar
-
-# Expose the application port
+COPY target/*.jar .
 EXPOSE 8080
+ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-jar", "app.jar"]
 
-# Run the application
-ENTRYPOINT ["java", "-Xmx256m", "-Xms128m","-jar", "app.jar"]
