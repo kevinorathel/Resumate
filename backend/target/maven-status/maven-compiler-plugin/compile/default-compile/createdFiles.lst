@@ -1,3 +1,4 @@
+com\ResuMate\DTO\OptimizeDTO.class
 com\ResuMate\DTO\JobDescriptionDTO.class
 com\ResuMate\Services\UserServiceImpl.class
 com\ResuMate\DTO\ResumeDTO.class
