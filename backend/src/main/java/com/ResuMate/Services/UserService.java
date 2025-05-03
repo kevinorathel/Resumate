@@ -15,6 +15,7 @@ public interface UserService {
     public String getCoverLetterContent(JobDescriptionDTO jobDescription) throws Exception;
     public byte[] createCoverLetter(JobDescriptionDTO jobDescription);
     public byte[] createResume(Long userId);
+    public JSONObject optimizeResumeBulletPoints(OptimizeDTO optimizeDTO) throws Exception;
 
 
 }

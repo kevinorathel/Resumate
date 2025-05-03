@@ -35,6 +35,13 @@ public class UserController {
         return new ResponseEntity<>(userService.getResumeData(userId), HttpStatus.OK);
     }
 
+    @PostMapping("/optimizeDescription")
+    public ResponseEntity<String> getResumeData(@RequestBody OptimizeDTO optimizeDTO) throws Exception {
+
+        JSONObject response = userService.optimizeResumeBulletPoints(optimizeDTO);
+        return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) throws Exception {
 

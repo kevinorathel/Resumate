@@ -160,5 +160,45 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    public JSONObject optimizeResumeBulletPoints(OptimizeDTO optimizeDTO) throws Exception {
+
+        JSONObject optimizedPoints = new JSONObject();
+
+        if (optimizeDTO != null) {
+            if (optimizeDTO.getJobRole() != null && optimizeDTO.getDescription() != null) {
+
+                String prompt = "I used to work as a" + optimizeDTO.getJobRole() + ". Im going to give you a summary of what i did. " +
+                        "Please don't give me any generic points (like using variables such as 'X' or 'Y'). " +
+                        "I want you to use the data which i have given below " +
+                        "I want you to give me some points that are professional which i can use in my resume:  \n" +
+                        "  \n" + optimizeDTO.getDescription();
+
+                String bulletContent = ResumeUtil.generateContent(prompt);
+
+                String prompt2 = "I want you to take the most important points from the below text (which i want to add to my resume)." +
+                        " The points taken should be a bit unique from each other. If it's better to merge two or more statements to make " +
+                        " it seem less generic then do that (only if it is required)" +
+                        " Give me only the points and nothing more than that: \n " + bulletContent;
+
+                bulletContent = ResumeUtil.generateContent(prompt2);
+
+                if (bulletContent == null || bulletContent.trim().isEmpty()) {
+                    optimizedPoints.put("error", "Failed to refine content into bullet points.");
+                    return optimizedPoints;
+                }
+
+                String cleanedResponse = bulletContent.replace("**", "");
+
+
+                optimizedPoints.put("points", cleanedResponse);
+                return optimizedPoints;
+
+            }
+        }
+
+        optimizedPoints.put("error", "Unexpected error");
+        return optimizedPoints;
+    }
+
 
 }
