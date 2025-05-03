@@ -14,6 +14,8 @@ const URL = process.env.REACT_APP_API_BASE_URL;
 const ResumeGenerator = () => {
   const navigate = useNavigate();
   const [isWEModalOpen, setIsWEModalOpen] = useState(false);
+  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const { setIsAuthenticated, setUsername, userId } = useContext(AuthContext);
@@ -279,15 +281,62 @@ const ResumeGenerator = () => {
 
                 <label htmlFor='description' className='field-name'>Description</label>
 
-                <StyledResumePillTextArea>
-                  <textarea placeholder="Tell us about what you did at work, hit optimize and see the magic" 
-                  className="input" id='description'/>
-                </StyledResumePillTextArea><br></br>
-                <OptimizeButton>
-                  <button className="button">
-                    <div><span>Optimize</span></div>
-                  </button>
-                  </OptimizeButton>
+                {isOptimizing ? (
+                  <div className='LoaderContainer'>
+                    <Loader />
+                  </div>
+                ) : (
+                  <>
+                    <StyledResumePillTextArea>
+                      <textarea
+                        placeholder="Tell us about what you did at work, hit optimize and see the magic"
+                        className="input"
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </StyledResumePillTextArea>
+                    <br />
+                    <OptimizeButton>
+                      <button
+                        className="button"
+                        onClick={() => {
+                          const jobRole = document.getElementById("jobTitle").value;
+                          const currentDescription = document.getElementById("description").value;
+
+                          if (!jobRole || !currentDescription) {
+                            alert("Please enter both Role and Description.");
+                            return;
+                          }
+
+                          setIsOptimizing(true);
+                          fetch(`${URL}/user/optimizeDescription`, {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ jobRole: jobRole, description: currentDescription }),
+                          })
+                            .then((response) => response.json())
+                            .then((data) => {
+                              console.log("data: ", data);
+                              console.log("data.optimizedDescription: ", data.optimizedDescription);
+                              setDescription(data.points);
+                              setIsOptimizing(false);
+                            })
+                            .catch((error) => {
+                              console.error("Error:", error);
+                              setIsOptimizing(false);
+                            });
+                        }}
+                      >
+                        <div>
+                          <span>Optimize</span>
+                        </div>
+                      </button>
+                    </OptimizeButton>
+                  </>
+                )}
 
 
               </div>           
@@ -466,7 +515,9 @@ const ModalContent = styled.div`
       color: rgba(0, 0, 0, 0.5);
     }
 
-  
+    .LoaderContainer{
+      justify-items: center;
+    }  
   }
 `;
 
@@ -511,13 +562,14 @@ const OptimizeButton = styled.div`
       4px 4px 0 2px var(--stone-50);
 
     &:hover {
-      transform: translate(0, 0);
-      box-shadow: 0 0 0 2px var(--stone-50);
+      
     }
 
     &:active,
     &:focus-visible {
       outline-color: var(--yellow-400);
+      transform: translate(0, 0);
+      box-shadow: 0 0 0 2px var(--stone-50);
     }
 
     &:focus-visible {

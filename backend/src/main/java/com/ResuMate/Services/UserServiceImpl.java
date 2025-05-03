@@ -100,7 +100,6 @@ public class UserServiceImpl implements UserService{
         if(user != null){
 
             String realPassword = AESUtil.decryptPassword(user.getPassword());
-            System.out.println(realPassword);
             if(loginDto.getPassword().equals(realPassword)){
                 response.put("status", true);
                 response.put("userId", user.getId());
