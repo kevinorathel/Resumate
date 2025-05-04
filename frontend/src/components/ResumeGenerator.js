@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../App';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import DatePicker from "react-datepicker";
+import {useNavigate } from 'react-router-dom';
+
 import "react-datepicker/dist/react-datepicker.css";
 import PillButton from './PillButton';
 import { saveAs } from 'file-saver';
@@ -16,8 +16,6 @@ const ResumeGenerator = () => {
   const [isWEModalOpen, setIsWEModalOpen] = useState(false);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const { setIsAuthenticated, setUsername, userId } = useContext(AuthContext);
   const [resumeData, setResumeData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -459,7 +457,7 @@ const Modal = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 1000px;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -472,53 +470,53 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 10px;
   width: 35%;
-  height: 60%;
+  height: 70%;
   position: relative;
   text-align: left;
 
-    button{
-      margin-top: 10px;
-    }
-
-    .field-name{
-      font-weight: 600 ;
-      opacity: 0.7;
-    }
-
-    .scrollable{
-      padding: 20px;
-      overflow: auto;
-      max-height: calc(100% - 200px);
-    }
-
-    .selection-box{
-      width: 50%;
-      border-radius: 10px;
-      outline: 2px solid #FEBF00;
-      border: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: #e2e2e2;
-      outline-offset: 3px;
-      padding: 10px 1rem;
-      transition: 0.25s;
-      font-size: 16px;
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
-    
-    .selection-box:focus {
-      outline-offset: 5px;
-      background-color: #fff
-    }
-
-    .selection-box.placeholder {
-      color: rgba(0, 0, 0, 0.5);
-    }
-
-    .LoaderContainer{
-      justify-items: center;
-    }  
+  button{
+    margin-top: 10px;
   }
+
+  .field-name{
+    font-weight: 600 ;
+    opacity: 0.7;
+  }
+
+  .scrollable{
+    padding: 20px;
+    overflow: auto;
+    max-height: calc(100% - 200px);
+  }
+
+  .selection-box{
+    width: 50%;
+    border-radius: 10px;
+    outline: 2px solid #FEBF00;
+    border: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #e2e2e2;
+    outline-offset: 3px;
+    padding: 10px 1rem;
+    transition: 0.25s;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+    
+  .selection-box:focus {
+    outline-offset: 5px;
+    background-color: #fff
+  }
+
+  .selection-box.placeholder {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .LoaderContainer{
+    justify-items: center;
+  }  
+}
 `;
 
 const OptimizeButton = styled.div`
@@ -635,6 +633,7 @@ const OptimizeButton = styled.div`
 const EnhanceButton = styled.div`
 align-items: right;
 margin-left: 10px;
+margin-top: 10px;
 
 button {
   background-color: white;
