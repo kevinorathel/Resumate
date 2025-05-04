@@ -1,6 +1,7 @@
 package com.ResuMate.Controllers;
 
 import com.ResuMate.DTO.*;
+import com.ResuMate.Models.ExperienceModel;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Services.UserService;
@@ -52,6 +53,13 @@ public class UserController {
     public ResponseEntity<Boolean> signup(@RequestBody SignupDTO signupDTO){
 
         return new ResponseEntity<>(userService.userSignUp(signupDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/saveResumeData")
+    public ResponseEntity<String> saveResumeData(@RequestBody SaveResumeDTO resumeDTO){
+
+        JSONObject response = userService.saveResumeData(resumeDTO);
+        return new ResponseEntity<>(response.toString(), HttpStatus.OK);
     }
 
     @PostMapping("/getContent")

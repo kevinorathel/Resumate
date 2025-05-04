@@ -3,12 +3,16 @@ C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\LoginDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\OptimizeDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\ResumeDTO.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\SaveResumeDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\SignupDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\UserDataDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Models\EducationModel.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Models\ExperienceModel.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Models\ProjectModel.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Models\UserModel.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Repositories\EducationRepository.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Repositories\ExperienceRepository.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Repositories\ProjectRepository.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Repositories\UserRepository.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\ResumateApplication.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Services\UserService.java
