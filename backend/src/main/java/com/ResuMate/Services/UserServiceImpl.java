@@ -186,8 +186,7 @@ public class UserServiceImpl implements UserService{
                     return optimizedPoints;
                 }
 
-                String cleanedResponse = bulletContent.replace("**", "");
-
+                String cleanedResponse = bulletContent.replace("**", "").replace("*", "•");
 
                 optimizedPoints.put("points", cleanedResponse);
                 return optimizedPoints;
@@ -198,6 +197,5 @@ public class UserServiceImpl implements UserService{
         optimizedPoints.put("error", "Unexpected error");
         return optimizedPoints;
     }
-
 
 }
