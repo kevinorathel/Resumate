@@ -285,6 +285,38 @@
 			"response": []
 		},
 		{
+			"name": "Optimize Resume Points",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"jobRole\":\"Backend Engineer\",\r\n    \"description\": \"I worked on building and maintaining RESTful APIs that made data retrieval faster and improved the overall performance of the application. I added features like pagination and automated Excel report generation to make the user experience smoother and more insightful. I also took care of database design, writing complex SQL queries, and creating clear relationships between data sets. When issues came up—whether in the back-end code or the database—I debugged and fixed them to keep everything running reliably. To protect user data, I implemented AES encryption, which significantly reduced the risk of data breaches. I also helped manage deployments across different environments and provided ongoing support to make sure the application continued to run smoothly.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/optimizeDescription",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"optimizeDescription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Production Test API",
 			"request": {
 				"auth": {
@@ -304,6 +336,38 @@
 					"path": [
 						"user",
 						"TestAPI"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Resume Data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"2\",\r\n    \"experiences\": [\r\n        {\r\n            \"company\": \"Test\",\r\n            \"role\": \"Associate Software Engineer\",\r\n            \"startDate\": \"2023-06-05T18:58:39.000+00:00\",\r\n            \"endDate\": \"2024-07-01T18:58:39.000+00:00\",\r\n            \"description\": \"Test Data\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/saveResumeData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"saveResumeData"
 					]
 				}
 			},

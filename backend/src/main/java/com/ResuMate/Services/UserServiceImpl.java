@@ -2,7 +2,12 @@ package com.ResuMate.Services;
 
 import com.ResuMate.DTO.*;
 import com.ResuMate.Models.EducationModel;
+import com.ResuMate.Models.ExperienceModel;
+import com.ResuMate.Models.ProjectModel;
 import com.ResuMate.Models.UserModel;
+import com.ResuMate.Repositories.EducationRepository;
+import com.ResuMate.Repositories.ExperienceRepository;
+import com.ResuMate.Repositories.ProjectRepository;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Util.AESUtil;
 import com.ResuMate.Util.ResumeUtil;
@@ -21,6 +26,15 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ExperienceRepository experienceRepository;
+
+    @Autowired
+    private EducationRepository educationRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     public UserDataDTO getUserData(Long userId){
 
@@ -112,6 +126,43 @@ public class UserServiceImpl implements UserService{
             response.put("status", false);
             return response.toString();
         }
+    }
+
+    public JSONObject saveResumeData(SaveResumeDTO resumeDTO){
+
+        JSONObject response = new JSONObject();
+        response.put("status", "Failed");
+        if(resumeDTO.getExperiences() != null){
+
+            for(ExperienceModel experience : resumeDTO.getExperiences()){
+                UserModel user = userRepository.getUserById(resumeDTO.getUserId());
+                experience.setUser(user);
+                experienceRepository.save(experience);
+            }
+            response.put("status", "Success");
+        }
+
+        if(resumeDTO.getEducation() != null){
+
+            for(EducationModel education : resumeDTO.getEducation()){
+                UserModel user = userRepository.getUserById(resumeDTO.getUserId());
+                education.setUser(user);
+                educationRepository.save(education);
+            }
+            response.put("status", "Success");
+        }
+
+        if(resumeDTO.getProjects() != null){
+
+            for(ProjectModel project : resumeDTO.getProjects()){
+                UserModel user = userRepository.getUserById(resumeDTO.getUserId());
+                project.setUser(user);
+                projectRepository.save(project);
+            }
+            response.put("status", "Success");
+        }
+        return response;
+
     }
 
     public String getAIGeneratedContent(String prompt) throws Exception {
