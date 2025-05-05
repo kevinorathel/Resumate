@@ -135,9 +135,21 @@ public class UserServiceImpl implements UserService{
         if(resumeDTO.getExperiences() != null){
 
             for(ExperienceModel experience : resumeDTO.getExperiences()){
-                UserModel user = userRepository.getUserById(resumeDTO.getUserId());
-                experience.setUser(user);
-                experienceRepository.save(experience);
+
+                if(experience.getId() != null){
+                    ExperienceModel existingExp = experienceRepository.getExperienceById(experience.getId());
+                    existingExp.setCompany(experience.getCompany());
+                    existingExp.setDescription(experience.getDescription());
+                    existingExp.setRole(experience.getRole());
+                    existingExp.setStartDate(experience.getStartDate());
+                    existingExp.setEndDate(experience.getEndDate());
+                    experienceRepository.save(existingExp);
+                }
+                else{
+                    UserModel user = userRepository.getUserById(resumeDTO.getUserId());
+                    experience.setUser(user);
+                    experienceRepository.save(experience);
+                }
             }
             response.put("status", "Success");
         }
@@ -145,9 +157,19 @@ public class UserServiceImpl implements UserService{
         if(resumeDTO.getEducation() != null){
 
             for(EducationModel education : resumeDTO.getEducation()){
-                UserModel user = userRepository.getUserById(resumeDTO.getUserId());
-                education.setUser(user);
-                educationRepository.save(education);
+
+                if(education.getId() != null){
+                    EducationModel existingEdu = educationRepository.getEducationById(education.getId());
+                    existingEdu.setDegree(education.getDegree());
+                    existingEdu.setYear(education.getYear());
+                    existingEdu.setInstitution(education.getInstitution());
+                    educationRepository.save(existingEdu);
+                }
+                else{
+                    UserModel user = userRepository.getUserById(resumeDTO.getUserId());
+                    education.setUser(user);
+                    educationRepository.save(education);
+                }
             }
             response.put("status", "Success");
         }
@@ -155,9 +177,19 @@ public class UserServiceImpl implements UserService{
         if(resumeDTO.getProjects() != null){
 
             for(ProjectModel project : resumeDTO.getProjects()){
-                UserModel user = userRepository.getUserById(resumeDTO.getUserId());
-                project.setUser(user);
-                projectRepository.save(project);
+
+                if(project.getId() != null){
+                    ProjectModel existingProj = projectRepository.getProjectById(project.getId());
+                    existingProj.setProjectDate(project.getProjectDate());
+                    existingProj.setProjectName(project.getProjectName());
+                    existingProj.setProjectDescription(project.getProjectDescription());
+                    projectRepository.save(existingProj);
+                }
+                else{
+                    UserModel user = userRepository.getUserById(resumeDTO.getUserId());
+                    project.setUser(user);
+                    projectRepository.save(project);
+                }
             }
             response.put("status", "Success");
         }
