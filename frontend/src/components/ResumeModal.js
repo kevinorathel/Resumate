@@ -1,9 +1,9 @@
-import React, { useState , useContext} from 'react';
+import React, { useState , useContext, useEffect} from 'react';
 import styled from 'styled-components';
 import { AuthContext } from '../App';
 import Loader from './Loader';
 
-const ResumeModal = ({ isOpen, onClose, refreshData }) => {
+const ResumeModal = ({ isOpen, onClose, refreshData, exp }) => {
   const [isOptimizing, setIsOptimizing] = useState(false);
   const { setIsAuthenticated, setUsername, userId } = useContext(AuthContext);
   const [description, setDescription] = useState("");
@@ -11,7 +11,44 @@ const ResumeModal = ({ isOpen, onClose, refreshData }) => {
   const [startYear, setStartYear] = useState('');
   const [endMonth, setEndMonth] = useState('');
   const [endYear, setEndYear] = useState('');
+  const [company, setCompany] = useState('');
+  const [role, setRole] = useState('');
   const URL = process.env.REACT_APP_API_BASE_URL;
+
+  useEffect(() => {
+    if (exp) {
+      console.log(exp);
+      if (exp.startDate) {
+        const start = new Date(exp.startDate);
+        setStartMonth(start.getMonth() + 1);
+        setStartYear(start.getFullYear());
+      } else {
+        setStartMonth('');
+        setStartYear('');
+      }
+
+      if (exp.endDate) {
+        const end = new Date(exp.endDate);
+        setEndMonth(end.getMonth() + 1);
+        setEndYear(end.getFullYear());
+      } else {
+        setEndMonth('');
+        setEndYear('');
+      }
+
+      setDescription(exp.description || '');
+      setCompany(exp.company || '');
+      setRole(exp.role || '');
+    } else {
+      setDescription("");
+      setCompany("");
+      setRole("");
+      setStartMonth("");
+      setStartYear("");
+      setEndMonth("");
+      setEndYear("");
+    }
+  }, [exp]);
 
   const months = [
     "January", "February", "March", "April", "May", "June",
@@ -83,6 +120,7 @@ const ResumeModal = ({ isOpen, onClose, refreshData }) => {
         userId: userId,
         experiences: [
           {
+            id: exp && exp.id ? exp.id : null,
             company,
             role,
             startDate,
@@ -127,12 +165,26 @@ const ResumeModal = ({ isOpen, onClose, refreshData }) => {
         <div className='scrollable'>
           <label htmlFor='employerName' className='field-name'>Employer name</label>
           <StyledWrapperPillTextInput type="text" >
-            <input type="text" placeholder="Where you worked" className="input" id='employerName' />
+            <input
+              type="text"
+              placeholder="Where you worked"
+              className="input"
+              id='employerName'
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
           </StyledWrapperPillTextInput><br></br>
 
           <label htmlFor='jobTitle' className='field-name'>Job Title</label>
           <StyledWrapperPillTextInput type="text" >
-            <input type="text" placeholder="What was your role" className="input" id='jobTitle' />
+            <input
+              type="text"
+              placeholder="What was your role"
+              className="input"
+              id='jobTitle'
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            />
           </StyledWrapperPillTextInput><br></br>
 
           <label htmlFor='startDate' className='field-name'>Start Date</label>
