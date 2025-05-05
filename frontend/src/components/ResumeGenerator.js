@@ -13,6 +13,7 @@ const URL = process.env.REACT_APP_API_BASE_URL;
 const ResumeGenerator = () => {
   const navigate = useNavigate();
   const [isWEModalOpen, setIsWEModalOpen] = useState(false);
+  const [selectedExp, setSelectedExp] = useState(null);
   const { setIsAuthenticated, setUsername, userId } = useContext(AuthContext);
   const [resumeData, setResumeData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -85,12 +86,14 @@ const ResumeGenerator = () => {
       });
   };
 
-  const openWEModal = () => {
+  const openWEModal = (exp) => {
+    setSelectedExp(exp);
     setIsWEModalOpen(true);
   };
 
   const closeWEModal = () => {
     setIsWEModalOpen(false);
+    setSelectedExp(null);
   };
 
   return (
@@ -121,7 +124,7 @@ const ResumeGenerator = () => {
 
               <div>
                 <h2 className='comic-neue-bold-800 content-header'>Work Experience:
-                  <InteractionButton onClick={openWEModal}><i class="fa-solid fa-plus"></i></InteractionButton>
+<InteractionButton onClick={() => openWEModal(null)}><i class="fa-solid fa-plus"></i></InteractionButton>
                 </h2>
               </div>
               {resumeData && resumeData.experiences && (
@@ -129,7 +132,10 @@ const ResumeGenerator = () => {
                   {resumeData.experiences.map(exp => (
                     <div className='content-div content' key={exp.id}>
 
-                      <h3 className='comic-neue'>{exp.company}<InteractionButton><i class="fa-solid fa-pen"></i></InteractionButton><br></br></h3>
+                      <h3 className='comic-neue'>{exp.company}
+                        <InteractionButton onClick={() => openWEModal(exp)}><i class="fa-solid fa-pen"></i></InteractionButton>
+                        <br></br> 
+                      </h3>
                       <h4>{exp.role}</h4>
                       <span className='year' >{new Date(exp.startDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })} - </span>
                       <span className='year' >{new Date(exp.endDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span>
@@ -191,7 +197,7 @@ const ResumeGenerator = () => {
         )}
       </ResumeCard>
       <Footer>Copyright</Footer>
-      <ResumeModal isOpen={isWEModalOpen} onClose={closeWEModal} refreshData={refreshResumeData} />
+      <ResumeModal isOpen={isWEModalOpen} onClose={closeWEModal} refreshData={refreshResumeData} exp={selectedExp} />
     </HomePageContainer>
   );
 };
