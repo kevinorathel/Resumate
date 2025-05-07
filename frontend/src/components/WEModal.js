@@ -17,7 +17,6 @@ const ResumeModal = ({ isOpen, onClose, refreshData, exp }) => {
 
   useEffect(() => {
     if (exp) {
-      console.log(exp);
       if (exp.startDate) {
         const start = new Date(exp.startDate);
         setStartMonth(start.getMonth() + 1);
@@ -69,7 +68,7 @@ const ResumeModal = ({ isOpen, onClose, refreshData, exp }) => {
         }
 
         setIsOptimizing(true);
-        fetch(`${URL}/user/optimizeDescription`, {
+        fetch(`${URL}/user/optimizeWorkExperienceDescription`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
