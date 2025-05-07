@@ -11,14 +11,9 @@ import com.ResuMate.Repositories.ProjectRepository;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Util.AESUtil;
 import com.ResuMate.Util.ResumeUtil;
-import com.itextpdf.layout.element.List;
-import com.itextpdf.layout.element.ListItem;
-import com.itextpdf.layout.element.Paragraph;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.ZoneId;
 
 
 @Service
@@ -248,19 +243,19 @@ public class UserServiceImpl implements UserService{
 
     }
 
-    public JSONObject optimizeResumeBulletPoints(OptimizeDTO optimizeDTO) throws Exception {
+    public JSONObject optimizeWorkExperienceBulletPoints(OptimizeWorkExperienceDTO optimizeWorkExperienceDTO) throws Exception {
 
         JSONObject optimizedPoints = new JSONObject();
 
-        if (optimizeDTO != null) {
-            if (optimizeDTO.getJobRole() != null && optimizeDTO.getDescription() != null) {
+        if (optimizeWorkExperienceDTO != null) {
+            if (optimizeWorkExperienceDTO.getJobRole() != null && optimizeWorkExperienceDTO.getDescription() != null) {
 
-                String prompt = "I used to work as a" + optimizeDTO.getJobRole() + ". Im going to give you a summary of what i did. " +
+                String prompt = "I used to work as a" + optimizeWorkExperienceDTO.getJobRole() + ". Im going to give you a summary of what i did. " +
                         "Please don't give me any generic points (like using variables such as 'X' or 'Y'). Do not use any decimal points " +
                         "when showing quantities, only use whole numbers" +
                         "I want you to use the data which i have given below " +
                         "I want you to give me some points that are professional which i can use in my resume:  \n" +
-                        "  \n" + optimizeDTO.getDescription();
+                        "  \n" + optimizeWorkExperienceDTO.getDescription();
 
                 String bulletContent = ResumeUtil.generateContent(prompt);
 
@@ -282,6 +277,43 @@ public class UserServiceImpl implements UserService{
                 return optimizedPoints;
 
             }
+        }
+
+        optimizedPoints.put("error", "Unexpected error");
+        return optimizedPoints;
+    }
+
+    public JSONObject optimizeProjectBulletPoints(String projectDescription) throws Exception {
+
+        JSONObject optimizedPoints = new JSONObject();
+
+        if (projectDescription != null) {
+
+            String prompt = "I am going to give you a summary of a project that i had done. " +
+                        "I want you to give me some bullet points from this description that i can add to my resume. \n" +
+                        "Here is the description:   \n" +
+                        "  \n" + projectDescription;
+
+            String bulletContent = ResumeUtil.generateContent(prompt);
+
+            String prompt2 = "I want you to take the most important points from the below text. " +
+                    " The points taken should be a bit unique from each other. " +
+                    " If it's better to merge two or more statements to make " +
+                    " it seem less generic then do that (only if it is required)." +
+                    " Give me only the points and nothing more than that: \n " + bulletContent;
+
+            bulletContent = ResumeUtil.generateContent(prompt2);
+
+            if (bulletContent == null || bulletContent.trim().isEmpty()) {
+                optimizedPoints.put("error", "Failed to refine content into bullet points.");
+                return optimizedPoints;
+            }
+
+            String cleanedResponse = bulletContent.replace("**", "").replace("*", "•");
+
+            optimizedPoints.put("points", cleanedResponse);
+            return optimizedPoints;
+
         }
 
         optimizedPoints.put("error", "Unexpected error");

@@ -1,7 +1,6 @@
 package com.ResuMate.Controllers;
 
 import com.ResuMate.DTO.*;
-import com.ResuMate.Models.ExperienceModel;
 import com.ResuMate.Models.UserModel;
 import com.ResuMate.Repositories.UserRepository;
 import com.ResuMate.Services.UserService;
@@ -36,10 +35,22 @@ public class UserController {
         return new ResponseEntity<>(userService.getResumeData(userId), HttpStatus.OK);
     }
 
-    @PostMapping("/optimizeDescription")
-    public ResponseEntity<String> getResumeData(@RequestBody OptimizeDTO optimizeDTO) throws Exception {
+    @PostMapping("/optimizeWorkExperienceDescription")
+    public ResponseEntity<String> optimizeWorkExperience(@RequestBody OptimizeWorkExperienceDTO optimizeWorkExperienceDTO) throws Exception {
 
-        JSONObject response = userService.optimizeResumeBulletPoints(optimizeDTO);
+        JSONObject response = userService.optimizeWorkExperienceBulletPoints(optimizeWorkExperienceDTO);
+        return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+    }
+
+    @PostMapping("/optimizeProjectDescription")
+    public ResponseEntity<String> optimizeProjectDescription(@RequestBody OptimizeProjectDescriptionDTO payload) throws Exception {
+
+        String projectDescription="";
+        if(payload.getDescription() != null){
+            projectDescription = payload.getDescription();
+        }
+
+        JSONObject response = userService.optimizeProjectBulletPoints(projectDescription);
         return new ResponseEntity<>(response.toString(), HttpStatus.OK);
     }
 
