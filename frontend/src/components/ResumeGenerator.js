@@ -5,7 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import PillButton from './PillButton';
 import { saveAs } from 'file-saver';
 import Loader from './Loader';
-import ResumeModal from './ResumeModal';
+import ResumeModal from './WEModal';
+import ProjectModal from './ProjectModal';
 import styled from 'styled-components';
 
 const URL = process.env.REACT_APP_API_BASE_URL;
@@ -13,7 +14,11 @@ const URL = process.env.REACT_APP_API_BASE_URL;
 const ResumeGenerator = () => {
   const navigate = useNavigate();
   const [isWEModalOpen, setIsWEModalOpen] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+
   const [selectedExp, setSelectedExp] = useState(null);
+  const [selectedProj, setSelectedProj] = useState(null);
+
   const { setIsAuthenticated, setUsername, userId } = useContext(AuthContext);
   const [resumeData, setResumeData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,6 +101,16 @@ const ResumeGenerator = () => {
     setSelectedExp(null);
   };
 
+  const openProjModal = (proj) => {
+    setSelectedProj(proj);
+    setIsProjectModalOpen(true);
+  };
+
+  const closeProjModal = () => {
+    setIsProjectModalOpen(false);
+    setSelectedProj(null);
+  };
+
   return (
     <HomePageContainer>
       <Header>Resumate</Header>
@@ -124,7 +139,7 @@ const ResumeGenerator = () => {
 
               <div>
                 <h2 className='comic-neue-bold-800 content-header'>Work Experience:
-<InteractionButton onClick={() => openWEModal(null)}><i class="fa-solid fa-plus"></i></InteractionButton>
+                  <InteractionButton onClick={() => openWEModal(null)}><i class="fa-solid fa-plus"></i></InteractionButton>
                 </h2>
               </div>
               {resumeData && resumeData.experiences && (
@@ -169,12 +184,15 @@ const ResumeGenerator = () => {
                 </div>
               )}
               <hr style={{ borderTop: '2px solid #ccc', margin: '20px 0' }} />
-              <h2 label className='comic-neue-bold-800 content-header'>Projects: <InteractionButton><i class="fa-solid fa-plus"></i></InteractionButton></h2>
+              <h2 label className='comic-neue-bold-800 content-header'>Projects: 
+                <InteractionButton onClick={() => openProjModal(null)}><i class="fa-solid fa-plus"></i></InteractionButton>
+              </h2>
               {resumeData && resumeData.projects && (
                 <div className='content-div content'>
                   {resumeData.projects.map(proj => (
                     <div className='content-div' key={proj.id}>
-                      <h3 label className='comic-neue'>{proj.projectName}<InteractionButton><i class="fa-solid fa-pen"></i></InteractionButton><br></br></h3>
+                      <h3 label className='comic-neue'>{proj.projectName}
+                        <InteractionButton onClick={() => openProjModal(proj)}><i class="fa-solid fa-pen"></i></InteractionButton><br></br></h3>
                       <span className='year'>{new Date(proj.projectDate).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</span>
                       <br></br><br></br>
                       {proj.projectDescription
@@ -198,6 +216,7 @@ const ResumeGenerator = () => {
       </ResumeCard>
       <Footer>Copyright</Footer>
       <ResumeModal isOpen={isWEModalOpen} onClose={closeWEModal} refreshData={refreshResumeData} exp={selectedExp} />
+      <ProjectModal isOpen={isProjectModalOpen} onClose={closeProjModal} refreshData={refreshResumeData} proj={selectedProj} />
     </HomePageContainer>
   );
 };

@@ -185,7 +185,8 @@
 							"value": "1"
 						}
 					]
-				}
+				},
+				"description": "Get the data that is to be printed on to the resume including :-\n\n- Summary\n    \n- Experience\n    \n- Education\n    \n- Projects"
 			},
 			"response": []
 		},
@@ -214,7 +215,8 @@
 							"value": "1"
 						}
 					]
-				}
+				},
+				"description": "Get basic data about the user."
 			},
 			"response": []
 		},
@@ -285,7 +287,40 @@
 			"response": []
 		},
 		{
-			"name": "Optimize Resume Points",
+			"name": "Save Resume Data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"2\",\r\n    \"experiences\": [\r\n        {\r\n            \"id\":1,\r\n            \"company\": \"RCG Global Services\",\r\n            \"role\": \"Associate Software Engineer\",\r\n            \"startDate\": \"2023-06-05T18:58:39.000+00:00\",\r\n            \"endDate\": \"2024-07-01T18:58:39.000+00:00\",\r\n            \"description\": \"•   Boosted application responsiveness by 30% through RESTful API design and implementation with pagination.\\n•   Reduced manual financial reporting efforts by 40% by developing automated pipelines using RESTful APIs, providing accurate and timely data to finance.\\n•   Optimized complex SQL queries, improving average execution time by 25% and resolving key database performance bottlenecks, ensuring application stability.\\n•   Streamlined data processing workflows by improving data flow and application interoperability through database schema modifications and POJO class implementation.\\n•   Enhanced data security by implementing AES encryption for data at rest and in transit, proactively mitigating potential breach vulnerabilities.\\n•   Ensured consistent, reliable software releases by orchestrating and automating application deployments across multiple environments using Maven and Docker, while reducing deployment errors.\\n•   Maintained backend system health, achieving 99.9% uptime and ensuring rapid issue resolution within established SLAs.\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/saveResumeData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"saveResumeData"
+					]
+				},
+				"description": "Save or update the data in your resume. There is 1 mandatory parameter and 3 non mandatory parameters :-\n\n- userId: The current user's ID\n    \n- experiences: The experience id, company, role, start date, end date and description\n    \n- project: The project name, project date and description"
+			},
+			"response": []
+		},
+		{
+			"name": "Optimize Work Experience",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -302,7 +337,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/user/optimizeDescription",
+					"raw": "http://localhost:8080/user/optimizeWorkExperienceDescription",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -310,9 +345,43 @@
 					"port": "8080",
 					"path": [
 						"user",
-						"optimizeDescription"
+						"optimizeWorkExperienceDescription"
 					]
-				}
+				},
+				"description": "Optimize the bullet points that you would need in your resume. The user can enter a description of their day to day work . The body of the request should have 2 parameters :-\n\n- jobRole: The job role the user was employed as\n    \n- jobDescription: Detailed description about the user's day to day work"
+			},
+			"response": []
+		},
+		{
+			"name": "Optimize Project Description",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"I created an application from start to finish that helps users build resume's and cover letters using AI. Some of the features that the app offers are : a) Generates a resume in PDF format b) Help user's optimize their bullet points using AI. All they have to give is a vague description of what they used to do at work and resumate optimizes this data into professional resume ready bullet points c) Generates a cover letter using AI. Once the user's information has been updated in the database, The user can go to the cover letter generator page where they can paste the company name and job description for the role their applying to and using all this data and AI, resumate generates a cover letter in a PDF file The tech stack i used for this project was React, Java, MySQL and Google Gemini. The application is also fully live. The backend was deployed using Maven and Docker on Railway and the frontend was deployed on vercel.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/optimizeProjectDescription",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"optimizeProjectDescription"
+					]
+				},
+				"description": "Optimize the your project description. The user can enter a description of their project. The more detailed the better . The body of the request should have 1 parameters :-\n\n- description: Detailed description about the project"
 			},
 			"response": []
 		},
@@ -337,39 +406,8 @@
 						"user",
 						"TestAPI"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Save Resume Data",
-			"request": {
-				"auth": {
-					"type": "noauth"
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userId\": \"2\",\r\n    \"experiences\": [\r\n        {\r\n            \"company\": \"Test\",\r\n            \"role\": \"Associate Software Engineer\",\r\n            \"startDate\": \"2023-06-05T18:58:39.000+00:00\",\r\n            \"endDate\": \"2024-07-01T18:58:39.000+00:00\",\r\n            \"description\": \"Test Data\"\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/user/saveResumeData",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"user",
-						"saveResumeData"
-					]
-				}
+				"description": "Resumate's live API. Hit this to see if the service is up on live"
 			},
 			"response": []
 		}

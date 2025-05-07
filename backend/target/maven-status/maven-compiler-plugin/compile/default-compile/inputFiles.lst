@@ -1,7 +1,8 @@
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\Controllers\UserController.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\JobDescriptionDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\LoginDTO.java
-C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\OptimizeDTO.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\OptimizeProjectDescriptionDTO.java
+C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\OptimizeWorkExperienceDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\ResumeDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\SaveResumeDTO.java
 C:\Users\kevin\OneDrive\Desktop\ResuMate\backend\src\main\java\com\ResuMate\DTO\SignupDTO.java
